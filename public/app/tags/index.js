@@ -31,7 +31,7 @@ jQuery(function() {
 
 
     ModalCRUD.create({
-        title: 'Tags',
+        title: 'Tienda',
         element: '.entity-create',
         form_element: '#form-create-marca',
         element_is_load: true,
@@ -194,7 +194,7 @@ function load(url = null) {
 
 var init_functions = function() {
     ModalCRUD.edit({
-        title: 'Tags',
+        title: 'Tienda',
         element: '.edit-entity',
         element_is_load: true,
         form_element: '#form-update-marca',

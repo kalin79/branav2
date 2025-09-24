@@ -1,11 +1,11 @@
 jQuery(function () {
-    $( '#check_dia_especial' ).on( 'click', function() {
+    $( '#check_descuento' ).on( 'click', function() {
         if( $(this).is(':checked') ){
             // Hacer algo si el checkbox ha sido seleccionado
-            $("#valor_dia_especial").val(1);
+            $("#descuento_producto").val(1);
         } else {
             // Hacer algo si el checkbox ha sido deseleccionado
-            $("#valor_dia_especial").val(0);
+            $("#descuento_producto").val(0);
 
         }
     });
@@ -32,26 +32,26 @@ jQuery(function () {
             reader.readAsDataURL(file);
         }
     });
-    $('#imagen_desc_general').on('change', function () {
+    $('#poster-acerca-producto').on('change', function () {
         const file = this.files[0];
-        $("#file-desc-general").text(file['name']);
+        $("#file-label-acerca-producto").text(file['name']);
         if (file) {
             let reader = new FileReader();
             reader.onload = function (event) {
-                $('#img-desc-general').attr('src', event.target.result);
+                $('#img-upload-acerca-producto').attr('src', event.target.result);
             }
             reader.readAsDataURL(file);
         }
     });
 
 
-    $('#receta_foto_autor').on('change', function () {
+    $('#poster-como-usarlo').on('change', function () {
         const file = this.files[0];
-        $("#file-receta-foto-autor").text(file['name']);
+        $("#file-label-como-usarlo").text(file['name']);
         if (file) {
             let reader = new FileReader();
             reader.onload = function (event) {
-                $('#img-receta-foto-autor').attr('src', event.target.result);
+                $('#img-upload-como-usarlo').attr('src', event.target.result);
             }
             reader.readAsDataURL(file);
         }
@@ -125,14 +125,7 @@ jQuery(function () {
         var categories_id = $(this).val();
         $("#cmb_subcategoria").html('');
         load_subcategorias(categories_id);
-    });/*.on('select2:unselect', function (e) {
-        var categories_id = $(this).val();
-        $("#cmb_subcategoria").html('');
-        if (categories_id.length > 0) {
-            load_subcategorias(categories_id);
-        }
-
-    });*/
+    });;
     $("#cmb_marcas").select2({
         theme: "bootstrap4",
         placeholder: "Seleccione marcas"

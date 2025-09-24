@@ -270,7 +270,7 @@ function load_product_list (url = null)
 }
 
 function relacionar(product_id,product_relation){
-    var parameter = {product_id:product_id,product_relation_id:product_relation};
+    var parameter = {producto_id:product_id,producto_relacionado_id:product_relation};
     var url = url ? url : url_save_relacionada;
     $.post(url, parameter,function(data){
         load();

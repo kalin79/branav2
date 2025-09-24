@@ -13,6 +13,7 @@ use App\Http\Resources\CategoriaResource;
 use App\Http\Resources\CuidadoPersonalResource;
 use App\Models\Banners;
 use App\Models\Categorias;
+use App\Models\Cupones;
 use App\Models\MensajesCuidadoPersonal;
 use App\Traits\ApiResponser;
 
@@ -109,5 +110,28 @@ class HomeController extends Controller
         return $this->apiResponse($status, $code, $data);
     }
 
+    public function validarCupon(Request $request){
+        $cupon = Cupones::where('codigo',$request->codigo)->where('estado',1)->first();
+
+        if($cupon){
+
+            $status = 1;
+            $code   = 201;
+            $row                = new \stdClass();
+            $row->code           = $cupon->codigo;
+            $row->monto           = $cupon->monto;
+            $data   = $row;
+            return $this->apiResponse($status,$code,$data);
+
+        }
+        $row                = new \stdClass();
+        $row->msg           = 'El cupón no esta activo';
+
+        $status = 0;
+        $code   = 200;
+        $data   = $row;
+        return $this->apiResponse($status,$code,$data);
+
+    }
 
 }

@@ -15,7 +15,7 @@ class ProductoResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id'=>$this->id,
             'titulo' => $this->title_large,
             'subtitulo' => $this->title_small,
             'slug' => $this->slug,
@@ -24,13 +24,13 @@ class ProductoResource extends JsonResource
             'stock' => $this->stock,
             'description' => $this->description,
             'description_small' => $this->description_small,
-            'poster' => !empty($this->poster) ? asset('images/products/' . $this->id . '/' . $this->poster) : '',
-            'poster_mobile' => !empty($this->poster_mobile) ? asset('images/products/' . $this->id . '/' . $this->poster_mobile) : '',
+            'poster' =>!empty($this->poster) ? asset('images/products/' .$this->id.'/'.$this->poster) : '',
+            'poster_mobile' => !empty($this->poster_mobile) ? asset('images/products/'.$this->id.'/' . $this->poster_mobile) : '',
 
             'presentacion' => $this->presentacion,
-            'imagen_acerca_producto' => !empty($this->imagen_acerca_producto) ? asset('images/products/' . $this->id . '/' . $this->imagen_acerca_producto) : '',
+            'imagen_acerca_producto' => !empty($this->imagen_acerca_producto) ? asset('images/products/' .$this->id.'/'.$this->imagen_acerca_producto) : '',
             'acerca_producto' => $this->acerca_producto,
-            'imagen_como_usarlo' => !empty($this->imagen_como_usarlo) ? asset('images/products/' . $this->id . '/' . $this->imagen_como_usarlo) : '',
+            'imagen_como_usarlo' => !empty($this->imagen_como_usarlo) ? asset('images/products/' .$this->id.'/'.$this->imagen_como_usarlo) : '',
             'como_usarlo' => $this->como_usarlo,
             // 👇 categorías
             'categoria' => $this->whenLoaded('categoria', function () {
@@ -38,7 +38,6 @@ class ProductoResource extends JsonResource
                     'id' => $this->categoria->id,
                     'titulo' => $this->categoria->titulo,
                     'slug' => $this->categoria->slug,
-                    'color' => $this->color,
                 ];
             }),
             'subcategoria' => $this->whenLoaded('subcategoria', function () {

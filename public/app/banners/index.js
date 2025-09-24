@@ -72,7 +72,7 @@ jQuery(function() {
     ModalCRUD.create({
         title: 'Banners',
         element: '.entity-create',
-        mode: 'lg',
+       // mode: 'lg',
         form_element: '#form-banners-create',
         element_is_load: true,
         isLoadFromAjax: false,
@@ -90,7 +90,7 @@ jQuery(function() {
     ModalCRUD.edit({
         title: 'Banners',
         element: '.edit-entity',
-        mode: 'lg',
+       // mode: 'lg',
         element_is_load: true,
         form_element: '#form-banners-edit',
         isLoadFromAjax: true,

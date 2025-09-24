@@ -74,8 +74,7 @@
 @push('scripts')
 
     <script>
-        var url_load_chart = "{{ route('reporte.load') }}";
-        var url_user_load = "{{ route('administrator.load') }}";
+
 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

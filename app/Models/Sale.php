@@ -225,4 +225,8 @@ class Sale extends Model
             $this->update();
         }
     }
+
+    public function payments() {
+        return $this->hasMany(Payment::class);
+    }
 }

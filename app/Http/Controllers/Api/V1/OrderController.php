@@ -3,31 +3,27 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 
-use App\Models\Participante;
-use App\Models\Product;
+use App\Models\Clientes;
+
 use App\Models\District;
 use App\Models\Province;
 use App\Models\Department;
-use App\Models\PaymentMethod;
-use App\Models\Dedication;
-use App\Models\Type;
+
 use App\Models\Sale;
 use App\Models\SaleProduct;
 use App\Models\OrderShippingInformation;
 use App\Http\Enums\TypePaymentVoucher;
 use App\Http\Enums\StatusSale;
 use App\Http\Enums\StatusSalePay;
-use App\Http\Requests\OrderStoreRequest;
-use App\Mail\OrderSend;
-use App\Models\Cupones;
 use App\Traits\ApiResponser;
 
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Log;
-/*use MercadoPago;
+use MercadoPago;
 use MercadoPago\SDK;
-use App\Services\MercadoPagoService;*/
+use App\Services\MercadoPagoService;
+use MercadoPago\Client\Payment\PaymentClient;
 //use App\Traits\Notification;
 use Illuminate\Support\Facades\Mail;
 class OrderController extends Controller
@@ -35,64 +31,78 @@ class OrderController extends Controller
     use ApiResponser;
     //use Notification;
 
-    /*public $mercadoPagoService;
+    public $mercadoPagoService;
 
     public function __construct(MercadoPagoService $mercadoPagoService)
     {
         $this->mercadoPagoService = $mercadoPagoService;
-    }*/
+    }
 
-    public function store(Request $request)
-    {
-        // dd(json_encode($request->transaction_result));
+    public function storeDatosCliente(Request $request){
         DB::beginTransaction();
         try {
+            $dataCliente = [
+                'nombres'=>$request->nombres,
+                'apellidos'=>$request->apellidos,
+                'nro_documento'=>$request->documento,
+                'celular'=>$request->celular,
+                'email'=>$request->email,
+                'direccion'=>$request->direccion,
+                'departamento_id'=>$request->departamento,
+                'provincia_id'=>$request->provincia,
+                'distrito_id'=>$request->distrito,
+            ];
+            if($request->cliente_id){
+                $cliente = Clientes::find($request->cliente_id);
+                if($cliente){
+                    $cliente->update($dataCliente);
+                }else{
+                    $cliente = Clientes::create($dataCliente);
+                }
+            }
 
             $sale = Sale::create([
-                'purchase_number' => $request->purchaseNumber,
-                'participante_id' => $request->participante_id,
-                'nombres' => $request->nombres,
-                'apellidos' => $request->apellidos,
-                'tipo_documento' => $request->tipo_documento,
-                'numero_documento' => $request->numero_documento,
-                'email' => $request->email,
-                'telefono' => $request->telefono,
-                'sub_total' => $request->montoSubTotal,
-                'total_price' => $request->montoTotal,
-                'status_pay' => $request->status_pay,
-                'discount' => $request->montoDescuento,
-                'paid_at' => date("Y-m-d"),
-                'transaction_id' => $request->transaction_id,
-                'transaction_result' => json_encode($request->transaction_result)
+                'client_id'=>$cliente->id,
+                'tipo_voucher_id'=>$request->tipoRecibo==1?TypePaymentVoucher::BOLETA:TypePaymentVoucher::FACTURA,
+                'ruc'=>$request->ruc,
+                'razon_social'=>$request->razonSocial,
+                'direccion'=>$request->direccionRUC,
+                'tyc'=>$request->tyc,
+                'politica_privacidad'=>$request->politica,
+                'enviar_correo_ofertas'=>$request->ofertas,
+            ]);
+            $sale->update([
+                'order_number'                  => '00'.$sale->id .' - '.$this->generateRandomStr(),
+                'status_pay'                    => StatusSalePay::PENDIENTE_PAGO,
+                'status_id'                     => StatusSale::PENDING
             ]);
             //$cupon_descuento = Cupones::where('codigo',$request->codigoDescuento)->update(['estado'=>0]);
-            $obj_productos = $request->sorteoListado;
+            $obj_productos = $request->productos;
             // dd($obj_productos);
             if (count($obj_productos) > 0) {
+                $total = 0;
                 foreach ($obj_productos as $sale_product) {
+                    $subtotal = $sale_product['quantity'] * $sale_product['price'];
                     $product = $sale->saleProducts()->create([
                         'product_id' => $sale_product['id'],
-                        'sorteo_id' => $sale_product['id'],
                         'unit_price' => $sale_product['price'],
                         'total_price' => $sale_product['price'] ? number_format($sale_product['price'] * $sale_product['quantity'], 2, '.', '') : '',
                         'quantity' => $sale_product['quantity'],
                     ]);
-                }
-            }
-            $participante = Participante::where('id', $request->participante_id)->first();
 
-            if ($participante) {
-                if ($request->montoDescuento != '' && $request->montoDescuento > 0) {
-                    $participante->update(['tickets_gratis' => 0]);
+                    $total += $subtotal;
                 }
+                $sale->update(['total_price' => $total]);
             }
 
-            $sale->generarComprobanteSunat($request);
-            $this->sendMailSale($sale);
+            //$this->sendMailSale($sale);
+
+
+           // $preference = $this->mercadoPagoService->createPreference($items, $sale->id);
             DB::commit();
 
             //$this->sendMailSale($sale);
-        } catch (Exception $exc) {
+        } catch (\Exception $exc) {
             DB::rollBack();
             $status = 0;
             $code = 500;
@@ -103,138 +113,70 @@ class OrderController extends Controller
         $data = new \stdClass();
         $data->order_id = $sale->id;
         $data->order_no = $sale->purchase_number;
-
         $status = 1;
         $code = 201;
 
         return $this->apiResponse($status, $code, $data);
-
     }
 
-    public function visitanteOrderStore(Request $request)
+    public function checkout(Request $request,Sale $sale)
     {
-        DB::beginTransaction();
-        try {
-            $participante = Participante::where('email', $request->email)->where('dni', $request->numero_documento)->first();
-
-            if (!$participante) {
-                $participante = Participante::create([
-                    'email' => $request->email,
-                    'dni' => $request->numero_documento,
-                    'nombres' => $request->nombres,
-                    'apellido_paterno' => $request->apellidos,
-                    'dni' => $request->numero_documento,
-                    'celular' => $request->telefono,
-                    'email' => $request->email,
-                ]);
-            }
-
-            $sale = Sale::create([
-                'purchase_number' => $request->purchaseNumber,
-                'participante_id' => $participante->id,
-                'nombres' => $request->nombres,
-                'apellidos' => $request->apellidos,
-                'tipo_documento' => $request->tipo_documento,
-                'numero_documento' => $request->numero_documento,
-                'email' => $request->email,
-                'telefono' => $request->telefono,
-                'sub_total' => $request->montoSubTotal,
-                'total_price' => $request->montoTotal,
-                'status_pay' => $request->status_pay,
-                'discount' => $request->montoDescuento,
-                'paid_at' => date("Y-m-d"),
-                'transaction_id' => $request->transaction_id,
-                'transaction_result' => json_encode($request->transaction_result)
-            ]);
-            //$cupon_descuento = Cupones::where('codigo',$request->codigoDescuento)->update(['estado'=>0]);
-            $obj_productos = $request->sorteoListado;
-            if (count($obj_productos) > 0) {
-                foreach ($obj_productos as $sale_product) {
-                    $product = $sale->saleProducts()->create([
-                        'product_id' => $sale_product['id'],
-                        'sorteo_id' => $sale_product['id'],
-                        'unit_price' => $sale_product['price'],
-                        'total_price' => $sale_product['price'] ? number_format($sale_product['price'] * $sale_product['quantity'], 2, '.', '') : '',
-                        'quantity' => $sale_product['quantity'],
-                    ]);
-                }
-            }
-
-            $sale->generarComprobanteSunat($request);
-            $this->sendMailSale($sale);
-            DB::commit();
-        } catch (Exception $exc) {
-            DB::rollBack();
-            $status = 0;
-            $code = 500;
-            $data = $exc;
-            return $this->apiResponse($status, $code, $data);
-        }
-
-        $data = new \stdClass();
-        $data->order_id = $sale->id;
-        $data->order_no = $sale->order_number;
-
-        $status = 1;
-        $code = 201;
-
-        return $this->apiResponse($status, $code, $data);
-
-    }
-
-    /*public function storeProcessPayment(Request $request,$sale)
-    {
-        Log::info('parametros=>',$request->all());
-        $sale = Sale::find($sale);
-        SDK::setAccessToken($this->mercadoPagoService->token_mp);
-        //guardamos los datos de la transacción
-        $payment                        = new MercadoPago\Payment();
-        $payment->transaction_amount    = (float)$request->transactionAmount;//*
-        $payment->token                 = $request->token; //*
-        $payment->description           = $request->description; //*
-        $payment->installments          = (int)$request->installments; //*
-        $payment->payment_method_id     = $request->paymentMethodId; //*
-        $payment->issuer_id             = (int) $request->issuer;
-
-        //guardamos los datos del que paga
-        $payer = new MercadoPago\Payer();
-        $payer->email = $request->email; //*
-        $payer->identification = array(
-            "type"      => $request->docType, //"DNI"
-            "number"    =>$request->docNumber //"12345678"
-        );
-        $payment->payer = $payer;
-
-        $payment->save();
-        Log::info("payment",(array)$payment);
-        $response = array(
-            'status'        => $payment->status,
-            'status_detail' => $payment->status_detail,
-            'id'            => $payment->id
-        );
-
-        $estado_pago = StatusSalePay::PENDIENTE_PAGO;
-        if($payment->status=="approved"){
-            $estado_pago = StatusSalePay::PAGADO;
-        }elseif($payment->status=="rejected"){
-            $estado_pago = StatusSalePay::RECHAZADO;
-        }
-
         $sale->update([
-            'transaction_status'    => $payment->status,
-            'transaction_result'    => $payment->status_detail,
-            'transaction_id'        => $payment->id,
-            'status_pay'            => $estado_pago,
-            'paid_at'               => date('Y-m-d H:i:s')
+            'tienda_id'=>$request->idTienda,
+            'discount'=>$request->montoDescuento,
+            'total'=>$request->totalPagar,
+            'type'=>$request->tipoRecojo,
+            'cost_delivery_district'=>$request->costoDelivery,
+            'codigo_descuento'=>$request->codigoDescuentocd
         ]);
+        $items = $sale->products->map(function($p) {
+            return [
+                'title' => "Producto #{$p->product_id}",
+                'quantity' => $p->quantity,
+                'currency_id' => 'PEN',
+                'unit_price' => (float) $p->unit_price,
+            ];
+        })->toArray();
 
-        $data                               = new \stdClass();
-        $data->order_id                     = $response;
-        $status = 1;
-        $code   = 201;
+        $preference = $this->mercadoPagoService->createPreference($items, $sale->id);
 
-        return $this->apiResponse($status,$code,$data);
-    }*/
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Preferencia de pago creada',
+            'data' => [
+                'preference_id' => $preference->id,
+                'init_point' => $preference->init_point,
+            ]
+        ]);
+    }
+
+    public function handle(Request $request)
+    {
+        \Log::info('Webhook recibido', $request->all());
+
+        if ($request->type === 'payment') {
+            $client = new PaymentClient();
+            $payment = $client->get($request->data['id']);
+
+            $saleId = $payment->external_reference;
+            $sale = Sale::find($saleId);
+
+            if ($sale) {
+                $sale->payments()->create([
+                    'payment_id' => $payment->id,
+                    'status' => $payment->status,
+                    'payment_type' => $payment->payment_type_id,
+                    'transaction_amount' => $payment->transaction_amount,
+                    'payload' => $payment,
+                ]);
+
+                $sale->update(['status' => $payment->status === 'approved' ? 'paid' : $payment->status]);
+            }
+        }
+
+        return response()->json(['status' => 'ok']);
+    }
+
 
     public function show($sale)
     {

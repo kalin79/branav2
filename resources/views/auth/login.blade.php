@@ -108,7 +108,7 @@
                             <div class="col-lg-12 bg-white p-4">
                                 <h4 class="mb-0">
                                     <h4>
-                                        <div>Bienvenido al sistema de gestión</div>
+                                        <div>Bienvenido al sistema de gestióncdd</div>
                                     </h4>
                                     <span>Inicia sesión en tu cuenta.</span></h4>
                                 {{--        <h6 class="mt-3">No account? <a href="javascript:void(0);" class="text-primary">Sign up now</a></h6>--}}

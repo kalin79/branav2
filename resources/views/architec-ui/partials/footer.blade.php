@@ -53,7 +53,7 @@
                         } else {
                             $(document).scrollTop(top);
                         }
-                        AlertMessage.printunauthorized(from_alert, 'Su sesion ah expirado, <a href="/interno/login"> para volver a ingresar haz click aqui</a>');
+                        AlertMessage.printunauthorized(from_alert, 'Su sesion ah expirado, <a href="/admin/login"> para volver a ingresar haz click aqui</a>');
                     }
                 }
             });
@@ -114,15 +114,27 @@
             $.ajaxSetup({
                 statusCode : {
                     500: function(data) {
-                        AlertMessage.print('.side-body:last', data.responseText);
                         var top = 0;// $(".side-body:last").offset().top;
                         $("[type=submit]").removeAttr("disabled");
 
+                        var from_alert= '.side-body:last';
                         if ($(".bootbox").length) {
+                            from_alert= '.row-alert:last';
                             $(".modal-body").animate({ scrollTop: 0 }, "fast");
                         } else {
                             $(document).scrollTop(top);
                         }
+                        let message = 'Error interno del servidor.';
+                        try {
+                            const response = JSON.parse(data.responseText);
+                            if (response.message) {
+                                message = response.message;
+                            }
+                        } catch (e) {
+                            // xhr.responseText no es JSON
+                        }
+
+                        AlertMessage.printError(from_alert, message);
                     }
                 }
             });

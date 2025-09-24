@@ -2,7 +2,7 @@
 {{--bg-dark header-text-light--}}
 {{--app-header header-shadow bg-primary header-text-light--}}
 {{--bg-primary--}}
-<div class="app-header header-shadow header-text-light " style="background: linear-gradient(74.62deg, #017BC0 4.79%, #0090DD 82.12%);">
+<div class="app-header header-shadow header-text-light " style="background: #018973;">
     <div class="app-header__logo">
         {{--        logo-src--}}
         {{--        <div class="logo-src"></div>--}}
@@ -83,10 +83,10 @@
                                                                  alt="">
                                                         </div>
                                                         <div class="widget-content-left">
-                                                            <div class="widget-heading">{{ Auth::user()->name }}
+                                                            <div class="widget-heading">{{ auth()->user()->name }}
                                                             </div>
                                                             <div class="widget-subheading opacity-8">
-                                                                @foreach(Auth::user()->role as $role)
+                                                                @foreach(auth()->user()->role as $role)
                                                                     {{ $role->title }}
                                                                 @endforeach
                                                             </div>

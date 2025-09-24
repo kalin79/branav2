@@ -23,12 +23,12 @@ use App\Http\Controllers\TiendaController;
 |
 */
 
-// Route::get('/', function () {
-//     return redirect('/admin/login');
-// });
+Route::get('/', function(){
+    return redirect('/admin/login');
+});
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', function () {
+    Route::get('/home', function(){
         return redirect('/admin/home');
     });
 });
@@ -36,11 +36,11 @@ Route::middleware(['auth'])->group(function () {
 Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => ['guest']], function () {
         //Route::get('/', 'Auth\LoginController@showLoginForm');
-        Route::get('/', [LoginController::class, 'showLoginForm'])->name('login');
+        Route::get('/', [LoginController::class, 'showLoginForm']);
         Route::get('/login', [LoginController::class, 'showLoginForm']);
-        // Route::get('/login', 'Auth\LoginController@showLoginForm');
+       // Route::get('/login', 'Auth\LoginController@showLoginForm');
         Route::post('/login', [LoginController::class, 'login'])->name('login');
-        // Route::post('/login', 'Auth\LoginController@login')->name('login');
+       // Route::post('/login', 'Auth\LoginController@login')->name('login');
     });
 
     Route::middleware(['auth'])->group(function () {
@@ -148,8 +148,7 @@ Route::get('/clear-cache', function () {
 });
 
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/{any}', function () {
     return view('frontend.app'); // el blade con #app
 })->where('any', '.*');
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

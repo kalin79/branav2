@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Language" content="{{ str_replace('_', '-', app()->getLocale()) }}">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-    <meta name="app-locale" content="{{ App::getLocale() }}">
+    <meta name="app-locale" content="{{ app()->getLocale() }}">
     <link rel="icon" type="image/icon" href="/favicon.ico"/>
 
 

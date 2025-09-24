@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('cupones', function (Blueprint $table) {
             $table->id();
+            $table->string('codigo')->unique();
+            $table->date('fecha_inicio');
+            $table->date('fecha_fin');
+            $table->integer('cantidad')->default(0);
+            $table->string('usuario_asociado')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->integer('created_user_id')->nullable();
+            $table->integer('updated_user_id')->nullable();
+            $table->integer('deleted_user_id')->nullable();
         });
     }
 

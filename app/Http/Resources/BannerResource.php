@@ -17,8 +17,8 @@ class BannerResource extends JsonResource
         return [
             'titulo' => $this->titulo,
             'descripcion' => $this->descripcion,
-            'poster' => !empty($this->poster) ? asset('images/banners/' . $this->id . '/' . $this->poster) : '',
-            'poster_mobile' => !empty($this->poster_mobile) ? asset('images/banners/' . $this->id . '/' . $this->poster_mobile) : '',
+            'poster' => !empty($this->poster) ? asset('images/banners/' .$this->id.'/'.$this->poster) : '',
+            'poster_mobile' => !empty($this->poster_mobile) ? asset('images/banners/' .$this->id.'/'.$this->poster_mobile) : '',
             'button' => $this->button,
             'link' => $this->link,
             'abrir_otra_ventana' => (bool) $this->abrir_otra_ventana,

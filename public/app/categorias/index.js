@@ -48,7 +48,7 @@ jQuery(function() {
 
     ModalCRUD.create({
         title: 'Categoria',
-
+        mode:'xl',
         element: '.entity-create',
         form_element: '#form-categoria-create',
         element_is_load: true,
@@ -67,7 +67,7 @@ jQuery(function() {
     });
     ModalCRUD.edit({
         title: 'Categoria',
-
+        mode:'xl',
         element: '.edit-entity',
         element_is_load: true,
         form_element: '#form-categoria-edit',
@@ -247,6 +247,18 @@ var load_functions = function() {
             let reader = new FileReader();
             reader.onload = function(event) {
                 $('#img-upload').attr('src', event.target.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    $('#image_mobile').on('change', function() {
+        const file = this.files[0];
+        $("#file-mobile").text(file['name']);
+        if (file) {
+            let reader = new FileReader();
+            reader.onload = function(event) {
+                $('#img-upload-mobile').attr('src', event.target.result);
             }
             reader.readAsDataURL(file);
         }
