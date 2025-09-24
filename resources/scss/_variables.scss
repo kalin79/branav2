@@ -1,0 +1,300 @@
+$azul : #f00;
+
+
+$blanco: white;
+$rosado: #FF8398;
+$rosadoSuave: #FFF1F2;
+
+$blancoHumo: #F8F8F8;
+
+$cremaClaro: #FFFDEA;
+
+$violetaRosa: #A984BA;
+$violetaRosaClaro: #DDCEE5;
+$rosaClaro: #FFE3E6;
+
+$amarrillo: #FFAD01;
+$amarrilloClaro: #FFFDE9;
+
+$verde: #00AC58;
+// $verde: #018973;
+$verdeClaro2: #00AC58;
+$verdeClaro: #D5E29C;
+$verdeSuave: #BDDDCA;
+$verdeOscuro: #003530;
+$verdeOscuro2: #00341C;
+
+$gris: #606060;
+$grisClaro: #F2F2F2;
+$grisClaro2: #D9D9D9;
+$grisClaro3: #959595;
+$grisClaro4: #DCDCDC;
+$grisClaro5: #D7D7D7;
+$grisClaro6: #F6F6F6;
+$grisClaro7: #6E6E6E;
+$grisclaro8: #DDDDDD;
+$grisClaro9: #F1F1F1;
+$grisClaro10: #707070;
+
+$grisOscuro: #474747;
+$grisOscuro2: #423F3F;
+$grisOscuro3: #727272;
+$grisOscuro4: #5B5347;
+$grisOscuro5: #444444;
+$grisOscuro6: #222626;
+$grisOscuro7: #7D7D7D;
+$grisOscuro8: #3b3b3b;
+$grisOscuro9: #5A5A5A;
+$grisOscuro10: #9D9D9D;
+
+@font-face {
+    font-family: 'PP Editorial New';
+    src: url('/fonts/Editorial/PPEditorialNew-Italic.woff?v=2') format('woff'),
+        url('/fonts/Editorial/PPEditorialNew-Italic.ttf') format('truetype'),
+        url('/fonts/Editorial/PPEditorialNew-Italic.woff2') format('woff2'),
+        url('/fonts/Editorial/PPEditorialNew-Italic.eot'),
+        url('/fonts/Editorial/PPEditorialNew-Italic.eot?#iefix') format('embedded-opentype'),
+        url('/fonts/Editorial/PPEditorialNew-Italic.svg#PPEditorialNew-Italic') format('svg');
+    font-weight: normal !important;
+    font-style: italic;
+    font-display: swap;
+}
+
+
+// Definimos los titulares con sus interlineados
+$tituloMiga: (
+    default: 1rem,
+    sm: .95rem,
+    md: 1rem,
+    lg: 1rem,
+);
+$interlineadoTituloMiga: (
+    default: 1.5rem,
+    sm: 1rem,
+    md: 1.5rem,
+    lg: 1.5rem,
+);
+
+
+$titularMediano: (
+    default: 1rem,
+    sm: 1.25rem,
+    md: 1.25rem,
+    lg: 1.25rem,
+    xl: 1.25rem,
+);
+
+$interlineadoTitularMediano: (
+    default: 1.25rem,
+    sm: 1.5rem,
+    md: 1.5rem,
+    lg: 1.5rem,
+    xl: 1.5rem,
+);
+
+$titularMediano2: (
+    default: 1.35rem,
+    sm: 1.35rem,
+    md: 1.35rem,
+    lg: 1.5rem,
+    xl: 2rem,
+);
+
+$interlineadoTitularMediano2: (
+    default: 1.5rem,
+    sm: 1.5rem,
+    md: 1.5rem,
+    lg: 1.5rem,
+    xl: 1.5rem,
+);
+
+$titularGrande: (
+    default: 2.5rem,
+    sm: 2.5rem,
+    md: 2.5rem,
+    lg: 2.85rem,
+    xl: 3.85rem,
+);
+
+$interlineadoTitularGrande: (
+    default: 2.35rem,
+    sm: 2.35rem,
+    md: 2.35rem,
+    lg: 2.75rem,
+    xl: 3.5rem,
+);
+
+$titularGrande2: (
+    default: 3rem,
+    sm: 3rem,
+    md: 3rem,
+    lg: 3.25rem,
+    xl: 3.25rem,
+);
+
+$interlineadoTitularGrande2: (
+    default: 3rem,
+    sm: 3rem,
+    md: 3rem,
+    lg: 3.5rem,
+    xl: 3.5rem,
+);
+
+$titularExtraGrande: (
+    default: 3rem,
+    sm: 5.125rem,
+    md: 5.125rem,
+    lg: 5.125rem,
+    xl: 5.125rem,
+);
+
+$interlineadoTitularExtraGrande: (
+    default: 2.75rem,
+    sm: 4.75rem,
+    md: 4.75rem,
+    lg: 4.75rem,
+    xl: 4.75rem,
+);
+
+$tituloNav: (
+    default: .9rem,
+    sm: .9rem,
+    md: .9em,
+    lg: .9rem,
+    xl: 1rem,
+);
+$interlineadoTituloNav: (
+    default: 1rem,
+    sm: 1rem,
+    md: 1rem,
+    lg: 1rem,
+    xl: 1rem,
+);
+
+
+$descripcionMediano: (
+    default: 1.125rem,
+    sm: 1.125rem,
+    md: 1.125em,
+    lg: 1.125rem,
+    xl: 1.125rem,
+);
+
+
+$interlineadoDescripcionMediano: (
+    default: 1.5rem,
+    sm: 1.5rem,
+    md: 1.5rem,
+    lg: 1.5rem,
+    xl: 1.35rem,
+);
+
+$descripcionMediano2: (
+    default: .9rem,
+    sm: 0.938rem,
+    md: 0.938em,
+    lg: 0.938rem,
+    xl: 0.938rem,
+);
+
+
+$interlineadoDescripcionMediano2: (
+    default: 1.15rem,
+    sm: 1.15rem,
+    md: 1.15rem,
+    lg: 1.15rem,
+    xl: 1.15rem,
+);
+
+$descripcionRegular: (
+    default: .85rem,
+    sm: .85rem,
+    md: .95em,
+    lg: 1em,
+    xl: 1rem,
+);
+
+
+$interlineadoDescripcionRegular: (
+    default: 1rem,
+    sm: 1rem,
+    md: 1.15rem,
+    lg: 1.25rem,
+    xl: 1.25rem,
+);
+
+$descripcionPequeno: (
+    default: .9rem,
+    sm: .9rem,
+    md: .9rem,
+    lg: .9rem,
+    xl: .9rem,
+);
+
+
+$interlineadoDescripcionPequeno: (
+    default: 1rem,
+    sm: 1rem,
+    md: 1rem,
+    lg: 1rem,
+    xl: 1rem,
+);
+
+$descripcionGrande: (
+    default: 1rem,
+    sm: 1rem,
+    md: 1em,
+    lg: 1em,
+    xl: 1.375rem,
+);
+
+
+$interlineadoDescripcionGrande: (
+    default: 1.5rem,
+    sm: 1.5rem,
+    md: 1.5rem,
+    lg: 1.5rem,
+    xl: 1.85rem,
+);
+
+$inputText: (
+    default: 0.875rem,
+    sm: 0.875rem,
+    md: 0.875rem,
+    lg: 0.875rem,
+    xl: 0.875rem,
+);
+
+$interlineadoInputText: (
+    default: 1.5rem,
+    sm: 1.5rem,
+    md: 1.5rem,
+    lg: 1.5rem,
+    xl: 1.5rem,
+);
+
+$inputTextCheck: (
+    default: 0.875rem,
+    sm: 0.875rem,
+    md: 0.875rem,
+    lg: 0.875rem,
+    xl: 0.875rem,
+);
+$interlineadoInputTextCheck: (
+    default: 1rem,
+    sm: 1rem,
+    md: 1rem,
+    lg: 1rem,
+    xl: 1rem,
+);
+// Fin 
+
+
+
+// Puntos de quiebre
+$breakpoints: (
+    sm: 768px,
+    md: 992px,
+    lg: 1200px,
+    xl: 1600px,
+);

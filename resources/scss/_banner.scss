@@ -1,0 +1,55 @@
+.bannerMain {
+    width: 100vw;
+    border-bottom: 4px solid rgba($verdeClaro, 1);
+
+    .slideContainer {
+        width: 100%;
+        height: 560px;
+        box-sizing: border-box;
+
+        @media screen and (min-width: 768px) {
+            height: 500px;
+        }
+
+        @media screen and (min-width: 992px) {
+            height: 620px;
+        }
+
+        @media (min-width: 992px) and (min-height: 700px) {
+            height: 100vh;
+        }
+
+        .imgBanner {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+}
+
+.bannerInterna {
+    width: 100%;
+    height: 560px;
+    box-sizing: border-box;
+    border-bottom: 4px solid rgba($verdeClaro, 1);
+
+    @media screen and (min-width: 768px) {
+        height: 500px;
+    }
+
+    @media screen and (min-width: 992px) {
+        height: 620px;
+    }
+
+    @media (min-width: 992px) and (min-height: 700px) {
+        height: 100vh;
+    }
+
+    .imgBanner {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+}

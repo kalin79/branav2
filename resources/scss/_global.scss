@@ -1,0 +1,759 @@
+.containerFluid {
+    padding: 0 2vw;
+}
+
+
+
+.tituloMiga {
+    @extend %tituloMigaBase;
+
+}
+
+.titularGrande {
+    @extend %titularGrandeBase;
+}
+
+.titularGrande2 {
+    @extend %titularGrandeBase2;
+}
+
+.titularExtraGrande {
+    @extend %titularExtraGrandeBase;
+}
+
+.titularMediano {
+    @extend %titularMedianoBase;
+}
+
+.titularMediano2 {
+    @extend %titularMediano2Base;
+}
+
+.DescripcionMediano {
+    @extend %DescripcionMedianoBase;
+}
+
+.DescripcionMediano2 {
+    @extend %DescripcionMediano2Base;
+}
+
+.DescripcionRegular {
+    @extend %DescripcionRegularBase;
+}
+
+.DescripcionGrande {
+    @extend %DescripcionGrandeBase;
+}
+
+.DescripcionPequeno {
+    @extend %DescripcionPequenoBase;
+}
+
+.inputText {
+    @extend %inputTextBase;
+}
+
+.inputTextCheck {
+    @extend %inputTextCheckBase;
+}
+
+.txtUppercase {
+    text-transform: uppercase !important;
+}
+
+.mt2 {
+    margin-top: .5rem;
+}
+
+.noviewError {
+    display: none !important;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: red;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-100%);
+    pointer-events: none;
+}
+
+.tagContainer {
+    padding: 1rem;
+    border: 1px solid rgba($verde, 1);
+    width: 224px;
+    border-radius: 30px;
+    text-align: center;
+    background: transparent;
+}
+
+.btnGlobal {
+    display: flex;
+    padding: 1rem 2rem;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    // background: linear-gradient(to bottom, #018973 100%, #A2CEB7 0%);
+    // background: linear-gradient(to bottom, #A2CEB7 5%, #018973 95%);
+    // background: linear-gradient(to bottom, #69bca5, #00977c);
+    background: linear-gradient(to bottom, $verdeClaro2, $verdeClaro2);
+    border: 1px solid $verdeClaro2;
+    border-radius: 30px;
+
+    &.bgGrisOscuro {
+        background: $grisOscuro8;
+        border: 1px solid $grisOscuro8;
+        color: white;
+    }
+
+    &.bgVerdeClaro {
+        background: $verdeClaro2;
+        border: 1px solid $verdeClaro2;
+        color: white;
+    }
+
+    &.bgVerdeOscuro2 {
+        background: $verdeOscuro2;
+        border: 1px solid $verdeOscuro2;
+        color: white;
+    }
+}
+
+
+.btnGlobalTransparente {
+    display: flex;
+    padding: 1rem 2rem;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    background: transparent;
+    border: 1px solid $grisOscuro3;
+    border-radius: 30px;
+}
+
+.btnTransparente {
+    background: transparent;
+    border: 0;
+}
+
+.circuloRegular {
+    width: 35px;
+    height: 32px;
+    border: 1px solid $verde;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (min-width: 1400px) {
+        width: 55px;
+        height: 52px;
+    }
+}
+
+.circuloContainer2 {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border: 1px solid white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (min-width: 1400px) {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+.cookie-banner {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    background-color: $verde;
+    color: #fff;
+    text-align: center;
+    z-index: 500;
+
+    .cookieContainer {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+
+        @media screen and (min-width: 992px) {
+            flex-direction: row;
+            gap: 3rem;
+        }
+
+        >div {
+            text-align: left;
+
+            &:nth-of-type(1) {
+                p {
+                    margin-top: .35rem;
+                }
+            }
+
+            &:nth-of-type(2) {
+                @media screen and (min-width: 992px) {
+                    flex: 0 0 220px;
+                }
+
+                button {
+                    display: flex;
+                    padding: 1rem 2rem;
+                    justify-content: center;
+                    align-items: center;
+                    gap: .5rem;
+                    background: linear-gradient(to bottom, #EEFFF5, #EEFFF5);
+                    border: 1px solid #EEFFF5;
+                    border-radius: 30px;
+                    color: $verdeClaro2;
+                    width: 100%;
+
+                    @media screen and (min-width: 992px) {
+                        padding: 1.25rem 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.quantityCartContainer {
+    display: flex;
+    justify-content: flex-start;
+    gap: .25rem;
+
+    input[type="number"] {
+        -webkit-appearance: none; // Chrome & Safari
+        -moz-appearance: textfield; // Firefox
+        appearance: textfield; // Para compatibilidad cruzada
+
+        width: 2.5rem;
+        height: 32px;
+        text-align: center;
+        border: 0px solid #ccc;
+        border-radius: 4px;
+        padding: 0;
+        box-sizing: border-box;
+
+        @media screen and (min-width: 1400px) {
+            height: 52px;
+        }
+
+        // Oculta los spinners en navegadores WebKit
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        // Opcionalmente oculta los spinners en Firefox (aunque -moz-appearance debería bastar)
+        &::-moz-inner-spin-button,
+        &::-moz-outer-spin-button {
+            display: none;
+        }
+    }
+}
+
+.bgBlanco {
+    background: white;
+}
+
+.fontEditorialItalic {
+    font-family: 'PP Editorial New', sans-serif !important;
+    font-weight: 300;
+}
+
+.fontPoppins {
+    font-family: "Poppins", sans-serif !important;
+}
+
+.fontWeight200 {
+    font-weight: 200 !important;
+}
+
+.fontWeight300 {
+    font-weight: 300 !important;
+}
+
+.fontWeight400 {
+    font-weight: 400 !important;
+}
+
+.fontWeight500 {
+    font-weight: 500 !important;
+}
+
+.fontWeight600 {
+    font-weight: 600 !important;
+}
+
+.txtLineHeight {
+    line-height: 4.75rem !important;
+}
+
+.txtNegro {
+    color: black !important;
+}
+
+.txtBlanco {
+    color: white !important;
+}
+
+.txtRosado {
+    color: $rosado !important;
+}
+
+.txtVerde {
+    color: $verde !important;
+}
+
+.txtGrisOscuro4 {
+    color: $grisOscuro4 !important;
+}
+
+.txtGrisOscuro6 {
+    color: $grisOscuro6 !important;
+}
+
+.txtGrisOscuro2 {
+    color: $grisOscuro2 !important;
+}
+
+.txtGrisOscuro9 {
+    color: $grisOscuro9 !important;
+}
+
+.textVerdeClaro {
+    color: $verdeClaro !important;
+}
+
+.textoVerdeClaro2 {
+    color: $verdeClaro2 !important;
+}
+
+.textoGrisClaro3 {
+    color: $grisClaro3 !important;
+}
+
+.textoGrisClaro7 {
+    color: $grisClaro7 !important;
+}
+
+.textoGrisClaro10 {
+    color: $grisClaro10 !important;
+}
+
+// formulario =====
+.linkContainer {
+    display: flex;
+    justify-content: flex-end;
+    padding: .5rem 0;
+    border: 0px solid red;
+    margin-bottom: 1rem;
+}
+
+.txtErrorContainer {
+    padding: .5rem 0;
+    border: 0px solid red;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.btnFormContainer {
+    width: 100%;
+
+    button {
+        width: 100%;
+        justify-content: center;
+        min-height: 69px;
+        border-radius: 60px;
+    }
+}
+
+.sinBr {
+    br {
+        display: none !important;
+    }
+}
+
+.rowForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 0 0rem;
+
+    a {
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba($grisClaro3, .5);
+        }
+    }
+}
+
+.inputContainer {
+    border: 1px solid rgba($grisClaro4, 1);
+    padding: 1rem 1.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    position: relative;
+
+    &.separar {
+        margin-top: 1rem;
+    }
+
+    &.big {
+        padding: 1.5rem 1.5rem 1rem;
+    }
+
+    .labelFlotante {
+        position: absolute;
+        left: 1.5rem;
+        top: 1.35rem;
+        font-size: .85rem;
+        color: #8c8c8c;
+        font-family: "Poppins", sans-serif !important;
+        pointer-events: none;
+        transition: 0.2s ease all;
+    }
+
+    input:focus+.labelFlotante,
+    input:not(:placeholder-shown)+.labelFlotante {
+        top: .5rem;
+        left: 1.1rem;
+        font-size: .75rem;
+        color: rgba(#959595, .5);
+        padding: 0 4px;
+        border-radius: 4px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+        background: transparent;
+        border: 0px;
+        width: 100%;
+
+        &::placeholder {
+            color: $grisClaro3;
+            opacity: .65;
+        }
+    }
+
+    /* Texto, fondo y borde cuando el navegador autocompleta */
+    input:-webkit-autofill,
+    textarea:-webkit-autofill,
+    select:-webkit-autofill {
+        -webkit-text-fill-color: #111;
+        /* color del texto */
+        caret-color: #111;
+        /* color del cursor */
+        box-shadow: 0 0 0 1000px #fff inset;
+        /* “pinta” el fondo */
+        border: 0px solid #ccc;
+        /* tu borde */
+        transition: background-color 9999s;
+        /* truco para evitar el amarillo */
+    }
+
+    /* Si usas dark mode */
+    .dark input:-webkit-autofill {
+        -webkit-text-fill-color: #fff;
+        box-shadow: 0 0 0 1000px #111 inset;
+        border-color: #333;
+    }
+
+}
+
+// Customización del select
+
+/* wrapper principal */
+.v-select {
+    font-family: inherit;
+    width: 100%;
+    @extend %inputTextBase;
+    color: $grisClaro3;
+}
+
+.vs__selected-options {
+    padding-left: 1rem;
+    // flex: 0 0 290px;
+}
+
+.big .vs__selected-options {
+    padding-left: .5rem;
+    // flex: 0 0 290px;
+}
+
+/* el cuadro principal */
+.vs__dropdown-toggle {
+    border: 1px solid rgba($grisClaro4, 1);
+    border-radius: 8px;
+    padding: 6px;
+    background-color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.big .vs__dropdown-toggle {
+    padding: 1rem 1rem .75rem;
+}
+
+/* el input de búsqueda */
+.selectContainer {
+    margin-bottom: 1rem;
+    position: relative;
+
+    .labelFlotante {
+        position: absolute;
+        left: 1.5rem;
+        top: 1.25rem;
+        font-size: .85rem;
+        color: #8c8c8c;
+        font-family: "Poppins", sans-serif !important;
+        transition: all 0.2s ease;
+        pointer-events: none;
+        /* evita que interfiera con el click */
+    }
+
+    /* flota por foco/abierto */
+    .v-select.vs--open~.labelFlotante {
+        top: .35rem;
+        left: 1.45rem;
+        font-size: 12px;
+        color: rgba(#959595, .5);
+    }
+
+    /* flota por valor */
+    &.hasValue .labelFlotante {
+        top: .35rem;
+        left: 1.45rem;
+        font-size: 12px;
+        color: rgba(#959595, .5);
+    }
+
+}
+
+
+
+.vs__search {
+    border: none;
+    outline: none;
+    @extend %inputTextBase;
+    color: $grisClaro3;
+    padding: 4px;
+    width: 150px;
+}
+
+.big .vs__search {
+    width: 80px;
+}
+
+/* la flecha */
+.vs__open-indicator {
+    fill: $grisClaro5;
+    transition: transform 0.2s;
+    position: relative;
+    top: .35rem;
+}
+
+
+.vs__clear {
+    position: relative;
+    top: .35rem;
+}
+
+.v-select.vs--open .vs__open-indicator {
+    transform: rotate(180deg);
+    /* animación al abrir */
+}
+
+/* lista desplegable */
+.vs__dropdown-menu {
+    border: 1px solid rgba($grisClaro4, 1);
+    border-radius: 8px;
+    margin-top: 4px;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* cada opción */
+.vs__dropdown-option {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.vs__dropdown-option:hover,
+.vs__dropdown-option--highlight {
+    background: #f5f5f5;
+}
+
+.vs__dropdown-option--selected {
+    @extend %inputTextBase;
+    background: $grisClaro5;
+    color: $grisOscuro;
+    font-weight: 500;
+}
+
+.no-options {
+    @extend %inputTextBase;
+    color: $grisOscuro;
+    padding: 8px;
+}
+
+.custom-checkbox {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+
+    input {
+        display: none; // ocultamos el checkbox nativo
+    }
+
+    .checkmark {
+        width: 20px;
+        height: 20px;
+        border: 2px solid $verdeOscuro2;
+        border-radius: 4px;
+        margin-right: 8px;
+        position: relative;
+        transition: background 0.3s, border 0.3s;
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            top: 2px;
+            left: 6px;
+            transform: rotate(45deg);
+            opacity: 0; // oculto por defecto
+            transition: opacity 0.2s;
+        }
+    }
+
+    input:checked+.checkmark {
+        background: $verdeOscuro2;
+        border-color: $verdeOscuro2;
+
+        &::after {
+            opacity: 1; // aparece el "check"
+        }
+    }
+}
+
+.checkContainer {
+    margin-bottom: .25rem;
+
+    &.separar {
+        margin: 1.5rem 0;
+    }
+
+    &.separate {
+        margin-bottom: 3rem;
+    }
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin: 8px 0;
+
+    input {
+        display: none;
+
+        &:checked+.custom-radio {
+            border-color: $verdeClaro2;
+            background-color: $verdeClaro2;
+
+            &::after {
+                content: "";
+                width: 10px;
+                height: 10px;
+                background: #00341C;
+                border-radius: 50%;
+                position: absolute;
+                top: 2px;
+                left: 2px;
+            }
+        }
+    }
+
+    .custom-radio {
+        width: 18px;
+        height: 18px;
+        border: 2px solid $verdeClaro2;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        margin-right: 8px;
+    }
+}
+
+.inputFlexContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-direction: column;
+
+    @media screen and (min-width: 992px) {
+        flex-direction: row;
+    }
+
+    >div {
+        flex: 1;
+    }
+}
+
+.inputFlexDescuentoContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+
+    .btnGlobal {
+        height: 73px;
+        border-radius: 10px;
+    }
+}
+
+.btnFormContainer {
+    margin-top: 3rem;
+}

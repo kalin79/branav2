@@ -1,0 +1,137 @@
+/// Mixin genérico para responsive de una propiedad
+/// $prop: nombre de la propiedad
+/// $values: map con keys default, sm, md…
+@mixin propiedadResponsiva($prop, $values) {
+    & {
+        #{$prop}: map-get($values, default);
+    }
+
+    @each $bp-name, $bp-value in $breakpoints {
+        @if map-has-key($values, $bp-name) {
+            @media (min-width: $bp-value) {
+                & {
+                    #{$prop}: map-get($values, $bp-name);
+                }
+            }
+        }
+    }
+}
+
+// Define propiedades comunes de títulos
+%tituloMigaBase {
+    font-family: "Poppins", sans-serif;
+    color: $blanco;
+    font-weight: 600;
+    @include propiedadResponsiva(line-height, $interlineadoTituloMiga);
+    @include propiedadResponsiva(font-size, $tituloMiga);
+}
+
+%titularGrandeBase {
+    font-family: "Poppins", sans-serif;
+    color: $blanco;
+    font-weight: 200;
+    letter-spacing: -.05em;
+    @include propiedadResponsiva(line-height, $interlineadoTitularGrande);
+    @include propiedadResponsiva(font-size, $titularGrande);
+}
+
+%titularGrandeBase2 {
+    font-family: "Poppins", sans-serif;
+    color: $blanco;
+    font-weight: 200;
+    letter-spacing: -.05em;
+    @include propiedadResponsiva(line-height, $interlineadoTitularGrande2);
+    @include propiedadResponsiva(font-size, $titularGrande2);
+}
+
+%titularExtraGrandeBase {
+    font-family: "PP Editorial New", sans-serif;
+    color: $verde;
+    font-weight: 300;
+    letter-spacing: -.05em;
+    @include propiedadResponsiva(line-height, $interlineadoTitularExtraGrande);
+    @include propiedadResponsiva(font-size, $titularExtraGrande);
+}
+
+%titularMedianoBase {
+    font-family: "Poppins", sans-serif;
+    color: $grisOscuro;
+    font-weight: 400;
+    letter-spacing: -.05em;
+    @include propiedadResponsiva(line-height, $interlineadoTitularMediano);
+    @include propiedadResponsiva(font-size, $titularMediano);
+}
+
+%titularMediano2Base {
+    font-family: "Poppins", sans-serif;
+    color: $grisOscuro;
+    font-weight: 400;
+    letter-spacing: -.05em;
+    @include propiedadResponsiva(line-height, $interlineadoTitularMediano2);
+    @include propiedadResponsiva(font-size, $titularMediano2);
+}
+
+%DescripcionMedianoBase {
+    font-family: "Poppins", sans-serif;
+    color: $grisOscuro;
+    font-weight: 400;
+    @include propiedadResponsiva(line-height, $interlineadoDescripcionMediano);
+    @include propiedadResponsiva(font-size, $descripcionMediano);
+}
+
+%DescripcionMediano2Base {
+    font-family: "Poppins", sans-serif;
+    color: $grisOscuro;
+    font-weight: 400;
+    @include propiedadResponsiva(line-height, $interlineadoDescripcionMediano2);
+    @include propiedadResponsiva(font-size, $descripcionMediano2);
+}
+
+%DescripcionRegularBase {
+    font-family: "Poppins", sans-serif;
+    color: $grisOscuro2;
+    font-weight: 500;
+    @include propiedadResponsiva(line-height, $interlineadoDescripcionRegular);
+    @include propiedadResponsiva(font-size, $descripcionRegular);
+}
+
+%DescripcionPequenoBase {
+    font-family: "Poppins", sans-serif;
+    color: $grisOscuro2;
+    font-weight: 300;
+    @include propiedadResponsiva(line-height, $interlineadoDescripcionPequeno);
+    @include propiedadResponsiva(font-size, $descripcionPequeno);
+}
+
+%DescripcionGrandeBase {
+    font-family: "Poppins", sans-serif;
+    color: $grisOscuro3;
+    font-weight: 400;
+    @include propiedadResponsiva(line-height, $interlineadoDescripcionGrande);
+    @include propiedadResponsiva(font-size, $descripcionGrande);
+}
+
+
+%tituloNavBase {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: $blanco;
+    @include propiedadResponsiva(line-height, $interlineadoTituloNav);
+    @include propiedadResponsiva(font-size, $tituloNav);
+}
+
+%inputTextBase {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color: $blanco;
+    @include propiedadResponsiva(line-height, $interlineadoInputText);
+    @include propiedadResponsiva(font-size, $inputText);
+}
+
+%inputTextCheckBase {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color: $blanco;
+    @include propiedadResponsiva(line-height, $interlineadoInputTextCheck);
+    @include propiedadResponsiva(font-size, $inputTextCheck);
+}

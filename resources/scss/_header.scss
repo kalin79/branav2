@@ -1,0 +1,257 @@
+.PanelMenuMobil {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    z-index: 6000;
+    top: 0;
+    left: 0%;
+    translate: none;
+    rotate: none;
+    scale: none;
+    transform: translate(-100%);
+
+    .contentBox {
+        // background: red;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        position: relative;
+
+        .BodyContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1.5rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .headerContainer {
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .closeContainer {
+                height: 25px;
+                cursor: pointer;
+
+                img {
+                    width: auto;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+
+            .logoContainer {
+                img {
+                    width: 110px;
+                    height: auto;
+                    object-fit: contain;
+                }
+            }
+        }
+    }
+}
+
+.headerContainerMain {
+    position: fixed;
+    padding: 1rem 0;
+    width: 100%;
+    z-index: 5000;
+    // border: 1px solid $grisclaro8;
+
+    .gridContainer {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        align-items: center;
+
+        @media screen and (min-width: 992px) {
+            grid-template-columns: repeat(12, 1fr);
+        }
+
+        .menuMovilNav {
+            grid-column: 1 / span 1;
+            display: block;
+            width: 30px;
+            height: 20px;
+            border: 0px solid red;
+            position: relative;
+            cursor: pointer;
+
+            @media screen and (min-width: 992px) {
+                display: none;
+            }
+
+            >div {
+                position: absolute;
+                height: 4px;
+                border-radius: 2px;
+                width: 100%;
+                background: $verdeClaro2;
+                overflow: hidden;
+
+                &:nth-of-type(1) {
+                    top: 0rem;
+                }
+
+                &:nth-of-type(2) {
+                    top: .4rem;
+                }
+
+                &:nth-of-type(3) {
+                    top: .8rem;
+                }
+            }
+        }
+
+        .logoContainer {
+            grid-column: 2 / span 1;
+
+            @media screen and (min-width: 992px) {
+                grid-column: 1 / span 2;
+            }
+
+            @media screen and (min-width: 1200px) {
+                grid-column: 1 / span 3;
+            }
+        }
+
+        nav {
+            // grid-column: 2 / span 1;
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: center;
+            // align-items: flex-end;
+            display: none;
+
+            @media screen and (min-width: 992px) {
+                grid-column: 3 / span 7;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+
+            @media screen and (min-width: 1200px) {
+                grid-column: 4 / span 6;
+            }
+
+
+
+
+
+            .opcionesContainer {
+                display: none;
+                width: 100%;
+
+                @media screen and (min-width: 992px) {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: .25rem;
+                    align-items: flex-start;
+                }
+
+                a {
+                    @extend %tituloNavBase;
+                    color: $gris;
+                    padding: .25rem 0rem;
+                    cursor: pointer;
+                    position: relative;
+                    letter-spacing: -.025em;
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        width: 0%;
+                        height: 2px;
+                        background: $verde;
+                        bottom: 0rem;
+                        left: 0rem;
+                        transition: .5s ease-in-out width;
+                    }
+
+                    &:hover {
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            width: 100%;
+                            height: 2px;
+                            background: $verde;
+                            bottom: 0rem;
+                            left: 0rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .loginCartContainer {
+            display: flex;
+            justify-content: flex-end;
+            grid-column: 3 / -1;
+
+            @media screen and (min-width: 992px) {
+                grid-column: 11 / -1;
+
+            }
+
+            @media screen and (min-width: 1200px) {
+                grid-column: 11 / -1;
+            }
+
+            .btnAccessUser {
+                background: $verdeClaro2;
+                border-radius: 35px;
+                box-sizing: border-box;
+                padding: .95rem 1.5rem .7rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 1rem;
+                max-width: 130px;
+
+                .btnTransparente {
+                    position: relative;
+
+                    .countProductContainer {
+                        position: absolute;
+                        top: -.5rem;
+                        right: -1rem;
+                    }
+                }
+
+                .bolsaComprasImg,
+                .userLoginImg {
+                    width: 18px;
+                    height: auto;
+                    object-fit: contain;
+                }
+
+                .userLoginImg {
+                    width: 20px;
+                }
+
+                >div {
+                    &:nth-of-type(2) {
+                        width: 1px;
+                        position: relative;
+
+                        .lineContainer {
+                            position: absolute;
+                            width: 1px;
+                            height: 25px;
+                            top: -0.10rem;
+                            left: 0.1rem;
+                            background: rgba(white, .8);
+                        }
+                    }
+                }
+            }
+
+
+        }
+    }
+}
