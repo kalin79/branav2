@@ -82,11 +82,15 @@ class OrderController extends Controller
             if (count($obj_productos) > 0) {
                 $total = 0;
                 foreach ($obj_productos as $sale_product) {
-                    $subtotal = $sale_product['quantity'] * $sale_product['price'];
+                    $subtotal = $sale_product['quantity'] * $sale_product['precio_actual'];
                     $product = $sale->saleProducts()->create([
                         'product_id' => $sale_product['id'],
-                        'unit_price' => $sale_product['price'],
-                        'total_price' => $sale_product['price'] ? number_format($sale_product['price'] * $sale_product['quantity'], 2, '.', '') : '',
+                        'product_name'=> $sale_product['titulo'],
+                        'product_description'=> $sale_product['presentacion'],
+                        'product_image'=> $sale_product['poster'],
+                        'detail'=> $sale_product['subcategoria'],
+                        'unit_price' => $sale_product['precio_actual'],
+                        'total_price' => $sale_product['precio_actual'] ? number_format($sale_product['precio_actual'] * $sale_product['quantity'], 2, '.', '') : '',
                         'quantity' => $sale_product['quantity'],
                     ]);
 
