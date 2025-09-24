@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\V1\VideoController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\SeccionCorporativaController;
 use App\Http\Controllers\Api\V1\UbigeoController;
+use App\Http\Controllers\Api\V1\OrderController;
 /*Route::group(['middleware' => ['guest']], function(){
 
     Route::get('home', [HomeController::class, 'home'])->name('api.home');
@@ -27,7 +28,8 @@ Route::middleware(['auth.secret'])->group(function () {
     Route::post('subscription', [HomeController::class, 'subscriptionStore'])->name('api.subscription');
     Route::post('contactanos/store', [HomeController::class, 'contactanos'])->name('api.contactanos');
 
-    //Route::post('/visitante/order/store', [OrderController::class, 'visitanteOrderStore'])->name('api.visitante.order.store');
+    Route::post('/order/store', [OrderController::class, 'storeDatosCliente'])->name('api.order.store');
+    Route::post('/order/checkout/{sale}', [OrderController::class, 'checkout'])->name('api.order.checkout');
     Route::post('/cliente/store', [ParticipanteController::class, 'store'])->name('api.participante.store');
     //Route::get('sorteo/{slug}', [ProductController::class, 'index'])->name('api.product');
     Route::post('/cliente/authenticate', [ParticipanteController::class, 'authenticate'])->name('api.participante.authenticate');
