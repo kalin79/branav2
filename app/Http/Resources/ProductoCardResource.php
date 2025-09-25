@@ -19,6 +19,7 @@ class ProductoCardResource extends JsonResource
             'titulo' => $this->title_large,
             'subtitulo' => $this->title_small,
             'slug' => $this->slug,
+            'presentacion'=>$this->presentacion,
             'precio_actual' => $this->precio_normal,
             'precio_anterior' => $this->precio_online,
             'poster' =>!empty($this->poster) ? asset('images/products/' .$this->id.'/'.$this->poster) : '',
