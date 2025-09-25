@@ -30,7 +30,7 @@ class Productos extends Model
     protected $fillable = [
         'code', 'title_small', 'title_large', 'slug', 'precio_normal', 'precio_online', 'stock', 'description', 'poster', 'active',
         'categoria_id','sub_categoria_id','price_delivery','description_small','poster_mobile','presentacion','imagen_acerca_producto',
-        'acerca_producto','imagen_como_usarlo','como_usarlo','poster_mobile'
+        'acerca_producto','imagen_como_usarlo','como_usarlo','poster_mobile','descuento_producto'
     ];
 
     /**

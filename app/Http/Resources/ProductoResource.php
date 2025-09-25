@@ -32,12 +32,14 @@ class ProductoResource extends JsonResource
             'acerca_producto' => $this->acerca_producto,
             'imagen_como_usarlo' => !empty($this->imagen_como_usarlo) ? asset('images/products/' .$this->id.'/'.$this->imagen_como_usarlo) : '',
             'como_usarlo' => $this->como_usarlo,
+            'descuento_producto'=>$this->descuento_producto==1?true:false,
             // 👇 categorías
             'categoria' => $this->whenLoaded('categoria', function () {
                 return [
                     'id' => $this->categoria->id,
                     'titulo' => $this->categoria->titulo,
                     'slug' => $this->categoria->slug,
+                    'color' => $this->categoria->color,
                 ];
             }),
             'subcategoria' => $this->whenLoaded('subcategoria', function () {

@@ -9,7 +9,7 @@ class MercadoPagoService
 {
     public function __construct()
     {
-        // Aquí usas las credenciales de tu .env
+        // Configurar token desde .env
         MercadoPagoConfig::setAccessToken(config('services.mercadopago.token'));
     }
 
@@ -17,16 +17,24 @@ class MercadoPagoService
     {
         $client = new PreferenceClient();
 
-        return $client->create([
-            'items' => $items,
-            'external_reference' => $saleId, // identificador de tu venta
-            'back_urls' => [
-                'success' => route('mp.success'),
-                'failure' => route('mp.failure'),
-                'pending' => route('mp.pending'),
-            ],
-            'auto_return' => 'approved',
-            'notification_url' => route('mp.webhook'), // webhook
-        ]);
+       // dd($items);
+        try {
+            $preference = $client->create([
+                'items' => $items,
+                'external_reference' => (string) $saleId,
+                'back_urls' => [
+                    'success' => url('/mercadopago/success'),
+                    'failure' => url('/mercadopago/failure'),
+                    'pending' => url('/mercadopago/pending'),
+                ],
+                //'auto_return' => 'approved',
+                //'notification_url' => url('/api/mercadopago/webhook'),
+            ]);
+        } catch (\MercadoPago\Exceptions\MPApiException $e) {
+            dd($e->getApiResponse()); // 👈 Esto muestra el detalle real del error
+        }
+
+        return $preference;
+
     }
 }

@@ -34,6 +34,11 @@ Route::middleware(['auth.secret'])->group(function () {
     //Route::get('sorteo/{slug}', [ProductController::class, 'index'])->name('api.product');
     Route::post('/cliente/authenticate', [ParticipanteController::class, 'authenticate'])->name('api.participante.authenticate');
     Route::post('/cliente/refresh', [ParticipanteController::class, 'refresh']);
+    Route::post('valid-cupon', [HomeController::class, 'validarCupon'])->name('api.validar_cupon');
+
+    Route::post('/mercadopago/webhook', [OrderController::class, 'handle'])->name('mp.webhook');
+    // routes/web.php
+
 
 
     //Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink']);

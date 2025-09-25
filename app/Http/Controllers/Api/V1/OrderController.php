@@ -18,7 +18,8 @@ use App\Http\Enums\StatusSalePay;
 use App\Traits\ApiResponser;
 
 use Illuminate\Http\Request;
-use DB;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Log;
 use MercadoPago;
 use MercadoPago\SDK;
@@ -57,8 +58,13 @@ class OrderController extends Controller
                 if($cliente){
                     $cliente->update($dataCliente);
                 }else{
+                    $dataCliente['password']=bcrypt($request->documento);
                     $cliente = Clientes::create($dataCliente);
                 }
+            }else
+            {
+                $dataCliente['password']=bcrypt($request->documento);
+                $cliente = Clientes::create($dataCliente);
             }
 
             $sale = Sale::create([
@@ -110,30 +116,32 @@ class OrderController extends Controller
             DB::rollBack();
             $status = 0;
             $code = 500;
-            $data = $exc;
+            $data = $exc->getMessage();
             return $this->apiResponse($status, $code, $data);
         }
 
         $data = new \stdClass();
         $data->order_id = $sale->id;
-        $data->order_no = $sale->purchase_number;
+        $data->order_no = $sale->order_number;
         $status = 1;
         $code = 201;
 
         return $this->apiResponse($status, $code, $data);
     }
 
-    public function checkout(Request $request,Sale $sale)
+    public function checkout(Request $request, $sale)
     {
+        $sale = Sale::find($sale);
+        //dd($sale);
         $sale->update([
             'tienda_id'=>$request->idTienda,
             'discount'=>$request->montoDescuento,
             'total'=>$request->totalPagar,
-            'type'=>$request->tipoRecojo,
+            'type'=>$request->tipoRecojo==1?'DELIVERY':'RECOJO',
             'cost_delivery_district'=>$request->costoDelivery,
-            'codigo_descuento'=>$request->codigoDescuentocd
+            'codigo_descuento'=>$request->codigoDescuento
         ]);
-        $items = $sale->products->map(function($p) {
+        $items = $sale->saleProducts->map(function($p) {
             return [
                 'title' => "Producto #{$p->product_id}",
                 'quantity' => $p->quantity,
@@ -141,7 +149,7 @@ class OrderController extends Controller
                 'unit_price' => (float) $p->unit_price,
             ];
         })->toArray();
-
+        //dd($items);
         $preference = $this->mercadoPagoService->createPreference($items, $sale->id);
 
         return response()->json([

@@ -152,3 +152,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/{any}', function () {
     return view('frontend.app'); // el blade con #app
 })->where('any', '.*');
+
+Route::get('/mercadopago/success', fn() => "Pago exitoso ✅")->name('mp.success');
+Route::get('/mercadopago/failure', fn() => "Pago fallido ❌")->name('mp.failure');
+Route::get('/mercadopago/pending', fn() => "Pago pendiente ⏳")->name('mp.pending');
