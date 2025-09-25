@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('client_id')->index();
             $table->bigInteger('client_address_id')->index()->nullable();
             $table->bigInteger('payment_method_id')->index()->nullable();
-            $table->enum('type', ['DELIVERY', 'RECOJO'])->default('DELIVERY');
+            $table->integer('type')->nullable();
             $table->timestamp('paid_at')->nullable();
             $table->date('date_send')->nullable();
             $table->time('hour_range')->nullable();

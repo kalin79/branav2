@@ -137,7 +137,7 @@ class OrderController extends Controller
             'tienda_id'=>$request->idTienda,
             'discount'=>$request->montoDescuento,
             'total'=>$request->totalPagar,
-            'type'=>$request->tipoRecojo==1?'DELIVERY':'RECOJO',
+            'type'=>$request->tipoRecojo,
             'cost_delivery_district'=>$request->costoDelivery,
             'codigo_descuento'=>$request->codigoDescuento
         ]);
