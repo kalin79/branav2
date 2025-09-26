@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -33,6 +34,7 @@ class ProductoResource extends JsonResource
             'imagen_como_usarlo' => !empty($this->imagen_como_usarlo) ? asset('images/products/' .$this->id.'/'.$this->imagen_como_usarlo) : '',
             'como_usarlo' => $this->como_usarlo,
             'descuento_producto'=>$this->descuento_producto==1?true:false,
+            'monto_descuento'=>setting('monto_descuento_producto', 0),
             // 👇 categorías
             'categoria' => $this->whenLoaded('categoria', function () {
                 return [

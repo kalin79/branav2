@@ -188,6 +188,15 @@
                                             </label>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <div class="custom-checkbox custom-control">
+                                                <input type="checkbox"  id="check_descuento"  class="custom-control-input" @if($product->descuento_producto) checked @endif>
+                                                <label class="custom-control-label" for="check_descuento"><b>Aplicar Descuento</b></label>
+                                                <input type="hidden" id="descuento_producto" name="descuento_producto" value="{{$product->descuento_producto}}">
+                                            </div>
+                                        </div>
+                                    </div>
 {{--                                    <div class="row">--}}
 {{--                                        <div class="form-group col-sm-6">--}}
 {{--                                            <div class="custom-checkbox custom-control">--}}

@@ -362,3 +362,8 @@ function registrarLogFront($usuarioId, $accion, $descripcion = null)
         Log::channel('front')->info($logMessage, $data);
     }
 }
+function setting($key, $default = null)
+{
+    $config = \App\Models\Setting::where('key', $key)->first();
+    return $config?->casted_value ?? $default;
+}
