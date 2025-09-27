@@ -25,7 +25,13 @@ class ProductController  extends Controller
     public function index($slug)
     {
         $producto = Productos::where('slug', $slug)
-            ->with(['categoria', 'subcategoria', 'galleries', 'relacionados'])
+            ->with([
+                'categoria',
+                'subcategoria',
+                'galleries',
+                'relacionados.categoria',
+                'relacionados.subcategoria',
+            ])
             ->where('active', 1)
             ->firstOrFail();
 

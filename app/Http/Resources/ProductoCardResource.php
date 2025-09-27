@@ -25,6 +25,7 @@ class ProductoCardResource extends JsonResource
             'poster' =>!empty($this->poster) ? asset('images/products/' .$this->id.'/'.$this->poster) : '',
             'poster_mobile' => !empty($this->poster_mobile) ? asset('images/products/'.$this->id.'/' . $this->poster_mobile) : '',
             'descuento_producto'=>$this->descuento_producto==1?true:false,
+            'monto_descuento'=>setting('monto_descuento_producto', 0),
             'categoria' => $this->whenLoaded('categoria', function () {
                 return [
                     'id' => $this->categoria->id,
