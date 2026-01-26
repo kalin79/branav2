@@ -21,7 +21,7 @@ Route::middleware(['auth.secret'])->group(function () {
     Route::get('productos', [HomeController::class, 'getProductos'])->name('api.productos');
     Route::get('video/{slug}', [VideoController::class, 'index'])->name('api.video-detalle');
     Route::get('producto/{slug}', [ProductController::class, 'index'])->name('api.producto-detalle');
-    Route::get('seccion-corporativa/{slug_seccion}', [SeccionCorporativaController::class, 'getDataSection'])->name('api.terminos-y-condiciones');
+    //Route::get('seccion-corporativa/{slug_seccion}', [SeccionCorporativaController::class, 'getDataSection'])->name('api.terminos-y-condiciones');
     Route::get('/departments', [UbigeoController::class, 'getDepartments']);
     Route::get('/provinces/{department_id}', [UbigeoController::class, 'getProvinces']);
     Route::get('/districts/{department_id}/{province_id}', [UbigeoController::class, 'getDistricts']);
