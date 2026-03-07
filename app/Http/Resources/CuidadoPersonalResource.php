@@ -16,7 +16,7 @@ class CuidadoPersonalResource extends JsonResource
     {
         return [
             'titulo' => $this->titulo,
-            'icono' => !empty($this->icono) ? asset('images/cuidado-personal/' .$this->id.'/'.$this->icono) : '',
+            'icono' => !empty($this->icono) ? asset('storage/images/cuidado-personal/' . $this->id . '/' . $this->icono) : '',
             'color' => $this->color,
             'descripcion' => $this->descripcion,
             'orden' => $this->orden,

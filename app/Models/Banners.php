@@ -22,7 +22,7 @@ class Banners extends Model
     const UPDATED_AT = 'updated_at';
 
 
-    protected $dates = ['created_at', 'updated_at','deleted_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -30,7 +30,18 @@ class Banners extends Model
      * @var array
      */
     protected $fillable = [
-        'titulo', 'descripcion', 'poster', 'button', 'link', 'position', 'active','poster_mobile','abrir_otra_ventana','created_user_id','updated_user_id','deleted_user_id'
+        'titulo',
+        'descripcion',
+        'poster',
+        'button',
+        'link',
+        'position',
+        'active',
+        'poster_mobile',
+        'abrir_otra_ventana',
+        'created_user_id',
+        'updated_user_id',
+        'deleted_user_id'
     ];
 
     /**
@@ -106,30 +117,18 @@ class Banners extends Model
     public function updateImages($images)
     {
         if ($images) {
-            $destinationPath = public_path('/images/banners/'.$this->id);
-            if(!File::isDirectory($destinationPath)){
-                File::makeDirectory($destinationPath, 0777, true, true);
-            }
-            $file = $images;
-            //$imagename = time() . "-sl." . $file->getClientOriginalExtension();
             $imagename = $this->id . "-desk-" . time() . '.' . $images->getClientOriginalExtension();
-            $file->move($destinationPath, $imagename);
-            $this->update(['poster'=>$imagename]);
+            Storage::disk('banners')->putFileAs($this->id, $images, $imagename);
+            $this->update(['poster' => $imagename]);
         }
     }
 
     public function updateImageMobile($images)
     {
         if ($images) {
-            $destinationPath = public_path('/images/banners/'.$this->id);
-            if(!File::isDirectory($destinationPath)){
-                File::makeDirectory($destinationPath, 0777, true, true);
-            }
-            $file = $images;
-            //$imagename = time() . "-sl." . $file->getClientOriginalExtension();
             $imagename = $this->id . "-mb-" . time() . '.' . $images->getClientOriginalExtension();
-            $file->move($destinationPath, $imagename);
-            $this->update(['poster_mobile'=>$imagename]);
+            Storage::disk('banners')->putFileAs($this->id, $images, $imagename);
+            $this->update(['poster_mobile' => $imagename]);
         }
     }
 }

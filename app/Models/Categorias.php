@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\File;
+use App\Models\Scopes\ActiveScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Filters\QueryFilter;
 
@@ -30,7 +32,16 @@ class Categorias extends Model
      * @var array
      */
     protected $fillable = [
-        'titulo', 'slug','parent_id', 'active', 'position', 'poster','poster_mobile','icono','color','descripcion'
+        'titulo',
+        'slug',
+        'parent_id',
+        'active',
+        'position',
+        'poster',
+        'poster_mobile',
+        'icono',
+        'color',
+        'descripcion'
     ];
 
     /**
@@ -54,7 +65,7 @@ class Categorias extends Model
         'active' => 'boolean',
         'poster' => 'string',
         'icono' => 'string',
-        'descripcion' =>'string'
+        'descripcion' => 'string'
     ];
 
     public static function storeValidation($request)
@@ -84,11 +95,11 @@ class Categorias extends Model
         ];
     }
 
-    public static function finterAndPaginate($q=null, $parent=null)
+    public static function finterAndPaginate($q = null, $parent = null)
     {
         $categories = Categorias::orderBy('position', "asc")
             ->withCount('subCategories')
-            ->orderBy('titulo','asc');
+            ->orderBy('titulo', 'asc');
 
         if ($parent) {
             $categories->where('parent_id', $parent);
@@ -131,15 +142,9 @@ class Categorias extends Model
     public function updateImageMobile($images)
     {
         if ($images) {
-            $destinationPath = public_path('/images/categoria/'.$this->id);
-            if(!File::isDirectory($destinationPath)){
-                File::makeDirectory($destinationPath, 0777, true, true);
-            }
-            $file = $images;
-            //$imagename = time() . "-sl." . $file->getClientOriginalExtension();
             $imagename = $this->id . "-mb-" . time() . '.' . $images->getClientOriginalExtension();
-            $file->move($destinationPath, $imagename);
-            $this->update(['poster_mobile'=>$imagename]);
+            Storage::disk('categoria')->putFileAs($this->id, $images, $imagename);
+            $this->update(['poster_mobile' => $imagename]);
         }
     }
     public function updateIcon($images)
@@ -155,7 +160,7 @@ class Categorias extends Model
 
     public function getImages()
     {
-        $baseUrl = Storage::disk('categoria')->url();
+        $baseUrl = Storage::disk('categoria')->url('');
         $images[] = $this->poster;
         return [
             'url' => $baseUrl,

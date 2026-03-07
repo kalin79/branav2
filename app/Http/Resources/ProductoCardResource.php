@@ -19,13 +19,13 @@ class ProductoCardResource extends JsonResource
             'titulo' => $this->title_large,
             'subtitulo' => $this->title_small,
             'slug' => $this->slug,
-            'presentacion'=>$this->presentacion,
+            'presentacion' => $this->presentacion,
             'precio_actual' => $this->precio_normal,
             'precio_anterior' => $this->precio_online,
-            'poster' =>!empty($this->poster) ? asset('images/products/' .$this->id.'/'.$this->poster) : '',
-            'poster_mobile' => !empty($this->poster_mobile) ? asset('images/products/'.$this->id.'/' . $this->poster_mobile) : '',
-            'descuento_producto'=>$this->descuento_producto==1?true:false,
-            'monto_descuento'=>setting('monto_descuento_producto', 0),
+            'poster' => !empty($this->poster) ? asset('storage/images/products/' . $this->id . '/' . $this->poster) : '',
+            'poster_mobile' => !empty($this->poster_mobile) ? asset('storage/images/products/' . $this->id . '/' . $this->poster_mobile) : '',
+            'descuento_producto' => $this->descuento_producto == 1 ? true : false,
+            'monto_descuento' => setting('monto_descuento_producto', 0),
             'categoria' => $this->whenLoaded('categoria', function () {
                 return [
                     'id' => $this->categoria->id,
