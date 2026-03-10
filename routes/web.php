@@ -12,6 +12,7 @@ use App\Http\Controllers\BannersController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\CuidadoPersonalController;
 use App\Http\Controllers\TiendaController;
+use App\Http\Controllers\SalesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,12 +24,12 @@ use App\Http\Controllers\TiendaController;
 |
 */
 
-Route::get('/', function(){
+Route::get('/', function () {
     return redirect('/admin/login');
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', function(){
+    Route::get('/home', function () {
         return redirect('/admin/home');
     });
 });
@@ -38,9 +39,9 @@ Route::group(['prefix' => 'admin'], function () {
         //Route::get('/', 'Auth\LoginController@showLoginForm');
         Route::get('/', [LoginController::class, 'showLoginForm']);
         Route::get('/login', [LoginController::class, 'showLoginForm']);
-       // Route::get('/login', 'Auth\LoginController@showLoginForm');
+        // Route::get('/login', 'Auth\LoginController@showLoginForm');
         Route::post('/login', [LoginController::class, 'login'])->name('login');
-       // Route::post('/login', 'Auth\LoginController@login')->name('login');
+        // Route::post('/login', 'Auth\LoginController@login')->name('login');
     });
 
     Route::middleware(['auth'])->group(function () {
@@ -135,6 +136,11 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('tienda/desactive', [TiendaController::class, 'desactive'])->name('tienda.desactive');
         Route::post('tienda/active', [TiendaController::class, 'active'])->name('tienda.active');
         Route::post('tienda/update-order', [TiendaController::class, 'updateOrder'])->name('tienda.update-order');
+
+        Route::get('/ventas', [SalesController::class, 'index'])->name('sales.index');
+        Route::get('/ventas/load', [SalesController::class, 'load'])->name('sales.load');
+        Route::get('/ventas/show/{sale}', [SalesController::class, 'show'])->name('sales.show');
+        Route::post('/ventas/update-status/{sale}', [SalesController::class, 'updateStatus'])->name('sales.update-status');
     });
 });
 

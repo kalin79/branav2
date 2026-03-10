@@ -29,6 +29,7 @@ Route::middleware(['auth.secret'])->group(function () {
     Route::get('/tiendas', [TiendaController::class, 'index'])->name('api.tiendas');
     Route::post('subscription', [HomeController::class, 'subscriptionStore'])->name('api.subscription');
     Route::post('contactanos/store', [HomeController::class, 'contactanos'])->name('api.contactanos');
+    Route::post('reclamacion/store', [HomeController::class, 'reclamacionStore'])->name('api.reclamacion');
 
     Route::post('/order/store', [OrderController::class, 'storeDatosCliente'])->name('api.order.store');
     Route::post('/order/checkout/{sale}', [OrderController::class, 'checkout'])->name('api.order.checkout');

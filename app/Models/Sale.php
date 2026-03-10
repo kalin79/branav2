@@ -12,10 +12,10 @@ use App\Http\Filters\QueryFilter;
 
 use App\Models\Client;
 use App\Models\SaleProduct;
-use App\Models\Status;
+use App\Models\Estados;
 use App\Models\OrderShippingInformation;
 use App\Models\PaymentMethod;
-use App\Models\Type;
+use App\Models\Tipos;
 
 class Sale extends Model
 {
@@ -98,55 +98,55 @@ class Sale extends Model
     {
         return [
 
-            'typeUser'                  => 'required|numeric|min:1|max:2',
-            'boolTerminos'              => 'required',
-            'paymentType'               => 'required|numeric|min:1|max:2',
+            'typeUser' => 'required|numeric|min:1|max:2',
+            'boolTerminos' => 'required',
+            'paymentType' => 'required|numeric|min:1|max:2',
 
-            'client_id'                 => 'nullable',
-            'client_address_id'         => 'nullable',
+            'client_id' => 'nullable',
+            'client_address_id' => 'nullable',
 
             // Datos de Productos
-            'productoObjListado'        => 'array|required',// [ { cantidad: 1, description: 'sss', id: 1, name: 'My Classic Love', photo: 'https://admin.floreriasumaq.pe/images/products/1/1-1621218681-60a1d5799edc2-pc.jpg', precio: 145.47} ]
-            'productoTipoMoneda'        => 'required|numeric|min:1|max:1',
-            'productoSimboloMoneda'     => 'required|string',
-            'getExchangeRate'           => 'required',
+            'productoObjListado' => 'array|required',// [ { cantidad: 1, description: 'sss', id: 1, name: 'My Classic Love', photo: 'https://admin.floreriasumaq.pe/images/products/1/1-1621218681-60a1d5799edc2-pc.jpg', precio: 145.47} ]
+            'productoTipoMoneda' => 'required|numeric|min:1|max:1',
+            'productoSimboloMoneda' => 'required|string',
+            'getExchangeRate' => 'required',
 
             // Datos del Comprobante
-            'comprobanteObjTipo.text'   => 'required',
-            'comprobanteObjTipo.value'  => 'required|numeric',
-            'comprobanteDireccion'      => 'nullable',
-            'comprobanteEmail'          => 'nullable|email',
-            'comprobanteRazonSocial'    => 'required', //vendrà el nombre o razon social
-            'comprobanteRuc'            => 'required',//vendra el ruc o dni
-            'comprobanteTelefono'       => 'nullable',
+            'comprobanteObjTipo.text' => 'required',
+            'comprobanteObjTipo.value' => 'required|numeric',
+            'comprobanteDireccion' => 'nullable',
+            'comprobanteEmail' => 'nullable|email',
+            'comprobanteRazonSocial' => 'required', //vendrà el nombre o razon social
+            'comprobanteRuc' => 'required',//vendra el ruc o dni
+            'comprobanteTelefono' => 'nullable',
 
             // Datos del usuario logueo o visitante
-            'contactoNombre'            => 'required',
-            'contactoEmail'             => 'required',
-            'contactoCelular'           => 'required|min:100000000|max:999999999|numeric',
+            'contactoNombre' => 'required',
+            'contactoEmail' => 'required',
+            'contactoCelular' => 'required|min:100000000|max:999999999|numeric',
 
             // Datos de la dedicatoria
-            'dedicatoriaActivarFirma'   => 'required',
-            'dedicatoriaFirma'          => 'required|string',
+            'dedicatoriaActivarFirma' => 'required',
+            'dedicatoriaFirma' => 'required|string',
             'dedicatoriaActivarMensaje' => 'required',
-            'dedicatoriaMensaje'        => 'required|string',
+            'dedicatoriaMensaje' => 'required|string',
 
             // Datos de quien recibe o recepciona el pedido
-            'recepcionaNombres'         => 'required|string',
-            'recepcionaApellidos'       => 'required|string',
-            'recepcionaCelular'         => 'required|min:100000000|max:999999999|numeric',
-            'recepcionaDireccion'       => 'required|string',
-            'recepcionaDni'             => 'nullable|min:10000000|max:99999999|numeric',
-            'recepcionaPostalCodeMaps'  => 'nullable|numeric',
-            'recepcionaProvinciaMaps'   => 'required|numeric',
-            'recepcionaReferencia'      => 'nullable|string',
-            'recepcionaObjDistrito'     => 'required',
+            'recepcionaNombres' => 'required|string',
+            'recepcionaApellidos' => 'required|string',
+            'recepcionaCelular' => 'required|min:100000000|max:999999999|numeric',
+            'recepcionaDireccion' => 'required|string',
+            'recepcionaDni' => 'nullable|min:10000000|max:99999999|numeric',
+            'recepcionaPostalCodeMaps' => 'nullable|numeric',
+            'recepcionaProvinciaMaps' => 'required|numeric',
+            'recepcionaReferencia' => 'nullable|string',
+            'recepcionaObjDistrito' => 'required',
 
-            'recepcionaFecha'           => 'required',
-            'recepcionaHora'            => 'required',
+            'recepcionaFecha' => 'required',
+            'recepcionaHora' => 'required',
 
-            'montoTotal'                => 'required',
-            'cargoDelivery'             => 'required'
+            'montoTotal' => 'required',
+            'cargoDelivery' => 'required'
 
             //'cupon_expire_in' => 'numeric|required',
             //'active' => 'required',
@@ -168,15 +168,18 @@ class Sale extends Model
         ];
     }
 
-    public function getFechaVentaAttribute(){
+    public function getFechaVentaAttribute()
+    {
         return date("d/m/Y", strtotime($this->created_at));
     }
 
-    public function getFechaEntregaAttribute(){
+    public function getFechaEntregaAttribute()
+    {
         return date("d/m/Y", strtotime($this->date_send));
     }
 
-    public function getFechaPagoAttribute(){
+    public function getFechaPagoAttribute()
+    {
         return $this->paid_at ? date("d/m/Y h:m", strtotime($this->paid_at)) : '';
     }
 
@@ -195,38 +198,39 @@ class Sale extends Model
 
     public function saleProducts()
     {
-        return $this->hasMany(SaleProduct::class, 'sale_id','id');
+        return $this->hasMany(SaleProduct::class, 'sale_id', 'id');
     }
 
 
 
     public function status()
     {
-        return $this->belongsTo(Status::class, 'status_id');
+        return $this->belongsTo(Estados::class, 'status_id');
     }
 
     public function statusPay()
     {
-        return $this->belongsTo(Status::class, 'status_pay');
+        return $this->belongsTo(Estados::class, 'status_pay');
     }
 
 
     public function typeVoucher()
     {
-        return $this->belongsTo(Type::class, 'tipo_voucher_id');
+        return $this->belongsTo(Tipos::class, 'tipo_voucher_id');
     }
 
     public function updateFileVoucher($file)
     {
         if ($file[0]) {
-            $fileName = $this->id . "-" . time() . '-' . uniqid(). '.' . $file[0]->getClientOriginalExtension();
+            $fileName = $this->id . "-" . time() . '-' . uniqid() . '.' . $file[0]->getClientOriginalExtension();
             Storage::disk('sales')->putFileAs($this->id, $file[0], $fileName);
             $this->name_file_pay = $fileName;
             $this->update();
         }
     }
 
-    public function payments() {
+    public function payments()
+    {
         return $this->hasMany(Payment::class);
     }
 }
