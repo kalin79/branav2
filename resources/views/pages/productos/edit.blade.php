@@ -231,7 +231,7 @@
                                             <div class="col-sm-2">
                                                 <div class="font-icon-wrapper float-left mr-3 mb-3 " style="height: 112px">
                                                     <img id="img-upload-acerca-producto"
-                                                        src="{{asset('storage/images/products')}}/{{$product->id}}/{{$product->imagen_acerca_producto}}"
+                                                        src="{{$product->imagen_acerca_producto_url}}"
                                                         class="rounded-circle img-custom" width="100" height="100px" />
                                                 </div>
                                             </div>
@@ -266,7 +266,7 @@
                                             <div class="col-sm-2">
                                                 <div class="font-icon-wrapper float-left mr-3 mb-3 " style="height: 112px">
                                                     <img id="img-upload-como-usarlo"
-                                                        src="{{asset('storage/images/products')}}/{{$product->id}}/{{$product->imagen_como_usarlo}}"
+                                                        src="{{$product->imagen_como_usarlo_url}}"
                                                         class="rounded-circle img-custom" width="100" height="100px" />
                                                 </div>
                                             </div>
@@ -300,7 +300,7 @@
                                             <div class="col-sm-2">
                                                 <div class="font-icon-wrapper float-left mr-3 mb-3 " style="height: 100px">
                                                     <img id="img-upload"
-                                                        src="{{asset('storage/images/products')}}/{{$product->id}}/{{$product->poster}}"
+                                                        src="{{$product->poster_url}}"
                                                         class="rounded-circle img-custom" width="100" height="100px" />
                                                 </div>
                                             </div>
@@ -318,7 +318,7 @@
                                             <div class="col-sm-2">
                                                 <div class="font-icon-wrapper float-left mr-3 mb-3 " style="height: 112px">
                                                     <img id="img-upload-mobile"
-                                                        src="{{asset('storage/images/products')}}/{{$product->id}}/{{$product->poster_mobile}}"
+                                                        src="{{$product->poster_mobile_url}}"
                                                         class="rounded-circle img-custom" width="100" height="100px" />
                                                 </div>
                                             </div>

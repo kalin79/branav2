@@ -46,8 +46,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="font-icon-wrapper float-left mr-3 mb-3">
-                    <img src="{{asset('storage/images/banners')}}/{{$banner->id}}/{{$banner->poster}}"
-                        class="rounded-circle img-custom" id='img-upload' width="100" />
+                    <img src="{{$banner->poster_url}}" class="rounded-circle img-custom" id='img-upload' width="100" />
                 </div>
             </div>
         </div>
@@ -62,8 +61,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="font-icon-wrapper float-left mr-3 mb-3">
-                    <img src="{{asset('storage/images/banners')}}/{{$banner->id}}/{{$banner->poster_mobile}}"
-                        class="rounded-circle img-custom" id='img-upload-mobile' width="100" />
+                    <img src="{{$banner->poster_mobile_url}}" class="rounded-circle img-custom" id='img-upload-mobile'
+                        width="100" />
                 </div>
             </div>
         </div>

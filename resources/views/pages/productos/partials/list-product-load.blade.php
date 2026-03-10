@@ -14,8 +14,7 @@
             <tr>
                 <td>
                     @if($producto->poster)
-                        <img src="{{ asset('storage/images/products') }}/{{ $producto->id }}/{{ $producto->poster }}"
-                            width="50px">
+                        <img src="{{ $producto->poster_url }}" width="50px">
                     @endif
                 </td>
                 <td>

@@ -131,4 +131,20 @@ class Banners extends Model
             $this->update(['poster_mobile' => $imagename]);
         }
     }
+    public function getPosterUrlAttribute()
+    {
+        if (!$this->poster) {
+            return null;
+        }
+
+        return Storage::disk('banners')->url($this->id . '/' . $this->poster);
+    }
+    public function getPosterMobileUrlAttribute()
+    {
+        if (!$this->poster_mobile) {
+            return null;
+        }
+
+        return Storage::disk('banners')->url($this->id . '/' . $this->poster_mobile);
+    }
 }

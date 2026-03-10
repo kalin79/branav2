@@ -39,42 +39,48 @@ return [
         ],
         'avatars' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/images/avatars'),
+            'root' => public_path('storage/images/avatars'),
             'url' => env('APP_URL') . '/storage/images/avatars',
             'visibility' => 'public',
         ],
         'cuidado-personal' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/images/cuidado-personal'),
+            'root' => public_path('storage/images/cuidado-personal'),
             'url' => env('APP_URL') . '/storage/images/cuidado-personal',
             'visibility' => 'public',
         ],
         'banners' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/images/banners'),
+            'root' => public_path('storage/images/banners'),
             'url' => env('APP_URL') . '/storage/images/banners',
             'visibility' => 'public',
         ],
         'categoria' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/images/categoria'),
+            'root' => public_path('storage/images/categoria'),
             'url' => env('APP_URL') . '/storage/images/categoria',
             'visibility' => 'public',
         ],
         'products' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/images/products/'),
+            'root' => public_path('storage/images/products/'),
             'url' => env('APP_URL') . '/storage/images/products/',
             'visibility' => 'public',
         ],
 
-        'public' => [
+        /*'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
+        ],*/
+        'public' => [
+            'driver' => 'local',
+            'root' => public_path('storage'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
         ],
 
         's3' => [

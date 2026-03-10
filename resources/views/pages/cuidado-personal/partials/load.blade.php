@@ -14,8 +14,8 @@
             <tr id="{{$valor->id}}">
                 <td>
                     @if($valor->icono)
-                        <img src="{{ asset('storage/images/cuidado-personal') }}/{{ $valor->id }}/{{ $valor->icono }}"
-                            width="80px" height="80" style="object-fit: cover;border-radius: 4px;">
+                        <img src="{{ $valor->icono_url }}" width="80px" height="80"
+                            style="object-fit: cover;border-radius: 4px;">
                     @endif
                 </td>
                 <td>

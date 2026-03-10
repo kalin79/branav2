@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoImagenes extends Model
 {
@@ -25,11 +26,14 @@ class ProductoImagenes extends Model
      * @var array
      */
     protected $fillable = [
-        'producto_id', 'image', 'order'
+        'producto_id',
+        'image',
+        'order'
     ];
 
-    public static function reorder($product_id){
-        $gallery = self::where('producto_id',$product_id)->orderby('order', 'asc')->get();
+    public static function reorder($product_id)
+    {
+        $gallery = self::where('producto_id', $product_id)->orderby('order', 'asc')->get();
         $min = $gallery->min('order');
         $ids = $gallery->pluck('id')->toArray();
         $min = $min === 0 ? 1 : $min;
@@ -41,5 +45,13 @@ class ProductoImagenes extends Model
                 $image->save();
             }
         }
+    }
+
+    public function getImageUrlAttribute()
+    {
+        if (!$this->image) {
+            return null;
+        }
+        return Storage::disk('products')->url($this->producto_id . '/' . $this->image);
     }
 }

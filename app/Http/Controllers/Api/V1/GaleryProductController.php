@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\BannerCategory;
-use App\Models\Category;
-use App\Models\Product;
+use App\Models\Banners;
+use App\Models\Categorias;
+use App\Models\Productos;
 use App\Http\Resources\ProductoResource;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -13,7 +13,7 @@ class GaleryProductController extends Controller
 {
     public function productDateEspecial()
     {
-        $products = Product::where('dia_especial', 1)->activos()->get();
+        $products = Productos::where('dia_especial', 1)->activos()->get();
         $data = [];
         foreach ($products as $product) {
             $row = new \stdClass();
@@ -21,8 +21,8 @@ class GaleryProductController extends Controller
             $row->title = $product->title_large ? trim($product->title_large) : '';
             $row->price = $product->price_normal;
             $row->price_old = $product->price_online;
-            $row->image = !empty($product->poster) ? asset('storage/images/products/' . $product->id . '/' . $product->poster) : '';
-            $row->imagemobile = !empty($product->poster_mobile) ? asset('storage/images/products/' . $product->id . '/' . $product->poster_mobile) : '';
+            $row->image = $product->poster_url ?? '';
+            $row->imagemobile = $product->poster_mobile_url ?? '';
             $row->link = '/' . trim($product->slug);
             $data[] = $row;
         }
@@ -38,7 +38,7 @@ class GaleryProductController extends Controller
 
     public function getCategories()
     {
-        $categories = Category::all();
+        $categories = Categorias::all();
 
         return response()->json([
             'status' => true,
@@ -48,25 +48,25 @@ class GaleryProductController extends Controller
 
     public function getProductsByCategory($id)
     {
-        $category = Category::find($id);
+        $category = Categorias::find($id);
 
         if (!$category) {
             return response()->json(['message' => 'Categoría no encontrada'], 404);
         }
 
-        $products = Product::where('category_id', $category->id)->get();
+        $products = Productos::where('category_id', $category->id)->get();
 
         return view('products.index', compact('products', 'category'));
     }
 
     public function productByCategories(Request $request)
     {
-        $categoria = Category::where('slug', $request->categoria_slug)->where('parent_id', 0)->activos()->first();
+        $categoria = Categorias::where('slug', $request->categoria_slug)->where('parent_id', 0)->activos()->first();
         if ($categoria) {
-            $products = Product::where('categoria_id', $categoria->id)->activos();
+            $products = Productos::where('categoria_id', $categoria->id)->activos();
             $sub_categoria_id = 0;
             if (isset($request->subcategoria_slug) && $request->subcategoria_slug) {
-                $sub_categoria = Category::where('slug', $request->subcategoria_slug)->where('parent_id', $categoria->id)->activos()->first();
+                $sub_categoria = Categorias::where('slug', $request->subcategoria_slug)->where('parent_id', $categoria->id)->activos()->first();
                 if ($sub_categoria) {
                     $sub_categoria_id = $sub_categoria->id;
                     $products = $products->where('sub_categoria_id', $sub_categoria->id);
@@ -84,8 +84,8 @@ class GaleryProductController extends Controller
                 $row->sub_category_name = $product->subCategory ? $product->subCategory->name : '';
                 $row->price = $product->price_normal;
                 $row->price_old = $product->price_online;
-                $row->image = !empty($product->poster) ? asset('storage/images/products/' . $product->id . '/' . $product->poster) : '';
-                $row->imagemobile = !empty($product->poster_mobile) ? asset('storage/images/products/' . $product->id . '/' . $product->poster_mobile) : '';
+                $row->image = $product->poster_url ?? '';
+                $row->imagemobile = $product->poster_mobile_url ?? '';
                 $row->link = 'producto/' . trim($product->slug);
                 $data[] = $row;
             }
@@ -124,14 +124,14 @@ class GaleryProductController extends Controller
     public function bannersByCategory($categoria_id)
     {
         $response = [];
-        $data = BannerCategory::activos()->where('category_id', $categoria_id)->orderBy('position')->get();
+        $data = Banners::activos()->where('category_id', $categoria_id)->orderBy('position')->get();
         if ($data && count($data) > 0) {
             foreach ($data as $banner) {
                 $row = new \stdClass();
                 $row->id = $banner->id;
                 $row->title = $banner->title ? trim($banner->title) : '';
-                $row->image = !empty($banner->poster) ? asset('storage/images/categories/' . $categoria_id . '/banners/' . $banner->id . '/' . $banner->poster) : '';
-                $row->imagemobile = !empty($banner->poster_mobile) ? asset('storage/images/categories/' . $categoria_id . '/banners/' . $banner->id . '/' . $banner->poster_mobile) : '';
+                $row->image = $banner->poster_url ?? '';
+                $row->imagemobile = $banner->poster_mobile_url ?? '';
                 $row->link = trim($banner->link);
                 $response[] = $row;
             }
@@ -144,7 +144,7 @@ class GaleryProductController extends Controller
     {
         $response = [];
 
-        $data = Category::activos()->with([
+        $data = Categorias::activos()->with([
             'subCategories' => function ($query) use ($sub_categoria) {
                 $query->activos();
                 $query->where('id', $sub_categoria);
@@ -180,7 +180,7 @@ class GaleryProductController extends Controller
 
     public function listSubCategories($categoria)
     {
-        $sub_categorias_data = Category::where('parent_id', $categoria->id)->activos()->get();
+        $sub_categorias_data = Categorias::where('parent_id', $categoria->id)->activos()->get();
         $response_sub_cate = [];
         if ($sub_categorias_data && count($sub_categorias_data) > 0) {
             foreach ($sub_categorias_data as $sub_categorias) {

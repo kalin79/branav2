@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\SeccionCorporativaController;
 use App\Http\Controllers\Api\V1\UbigeoController;
 use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\TiendaController;
 /*Route::group(['middleware' => ['guest']], function(){
 
     Route::get('home', [HomeController::class, 'home'])->name('api.home');
@@ -25,6 +26,7 @@ Route::middleware(['auth.secret'])->group(function () {
     Route::get('/departments', [UbigeoController::class, 'getDepartments']);
     Route::get('/provinces/{department_id}', [UbigeoController::class, 'getProvinces']);
     Route::get('/districts/{department_id}/{province_id}', [UbigeoController::class, 'getDistricts']);
+    Route::get('/tiendas', [TiendaController::class, 'index'])->name('api.tiendas');
     Route::post('subscription', [HomeController::class, 'subscriptionStore'])->name('api.subscription');
     Route::post('contactanos/store', [HomeController::class, 'contactanos'])->name('api.contactanos');
 

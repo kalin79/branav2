@@ -167,4 +167,31 @@ class Categorias extends Model
             'data' => $images
         ];
     }
+
+    public function getPosterUrlAttribute()
+    {
+        if (!$this->poster) {
+            return null;
+        }
+
+        return Storage::disk('categoria')->url($this->id . '/' . $this->poster);
+    }
+
+    public function getPosterMobileUrlAttribute()
+    {
+        if (!$this->poster_mobile) {
+            return null;
+        }
+
+        return Storage::disk('categoria')->url($this->id . '/' . $this->poster_mobile);
+    }
+
+    public function getIconoUrlAttribute()
+    {
+        if (!$this->icono) {
+            return null;
+        }
+
+        return Storage::disk('categoria')->url($this->id . '/' . $this->icono);
+    }
 }

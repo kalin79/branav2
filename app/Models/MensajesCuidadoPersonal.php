@@ -30,7 +30,12 @@ class MensajesCuidadoPersonal extends Model
      * @var array
      */
     protected $fillable = [
-        'titulo', 'active', 'orden','icono','color','descripcion'
+        'titulo',
+        'active',
+        'orden',
+        'icono',
+        'color',
+        'descripcion'
     ];
 
     /**
@@ -54,7 +59,7 @@ class MensajesCuidadoPersonal extends Model
         'active' => 'boolean',
         'poster' => 'string',
         'icono' => 'string',
-        'descripcion' =>'string'
+        'descripcion' => 'string'
     ];
 
     public static function storeValidation($request)
@@ -84,10 +89,10 @@ class MensajesCuidadoPersonal extends Model
         ];
     }
 
-    public static function finterAndPaginate($q=null)
+    public static function finterAndPaginate($q = null)
     {
         $categories = MensajesCuidadoPersonal::orderBy('orden', "asc")
-            ->orderBy('titulo','asc');
+            ->orderBy('titulo', 'asc');
 
         return $categories->paginate("10");
     }
@@ -115,11 +120,20 @@ class MensajesCuidadoPersonal extends Model
 
     public function getImages()
     {
-        $baseUrl = Storage::disk('categoria')->url();
+        $baseUrl = Storage::disk('categoria')->url('');
         $images[] = $this->poster;
         return [
             'url' => $baseUrl,
             'data' => $images
         ];
+    }
+
+    public function getIconoUrlAttribute()
+    {
+        if (!$this->icono) {
+            return null;
+        }
+
+        return Storage::disk('cuidado-personal')->url($this->id . '/' . $this->icono);
     }
 }

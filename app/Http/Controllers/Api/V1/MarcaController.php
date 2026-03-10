@@ -7,8 +7,8 @@ use App\Http\Enums\TypeArchivoImage;
 use App\Models\Banner;
 use App\Models\Campanas;
 use App\Models\Categorias;
-use App\Models\Marca;
-use App\Models\Product;
+use App\Models\Marcas;
+use App\Models\Productos;
 use App\Models\District;
 use App\Models\Province;
 use App\Models\Department;
@@ -28,7 +28,7 @@ class MarcaController extends Controller
     public function index($slug_marca)
     {
         $data = new \stdClass();
-        $marca = Marca::where('slug', '=', $slug_marca)->firstOrFail();
+        $marca = Marcas::where('slug', '=', $slug_marca)->firstOrFail();
 
         $data->videos = $this->videos($marca->id);
         $data->productos = $this->productos($marca->id);
@@ -55,8 +55,8 @@ class MarcaController extends Controller
                 $row->idMarca = $video->marca_id;
                 $row->marca = $video->marca->nombre;
                 $row->slug = $video->slug;
-                $row->image = !empty($video->poster) ? asset('storage/images/videos/' . $video->id . '/' . $video->poster) : '';
-                $row->imagemobile = !empty($video->poster_mobile) ? asset('storage/images/videos/' . $video->id . '/' . $video->poster_mobile) : '';
+                $row->image = $video->poster_url ?? '';
+                $row->imagemobile = $video->poster_mobile_url ?? '';
                 $row->video = $video->link_video;
                 $row->colorMarca = $video->marca->tipoColor->nombre; // colorGloria
                 $response_valores[] = $row;
@@ -69,7 +69,7 @@ class MarcaController extends Controller
     public function productos($marca_id)
     {
         $response_valores = [];
-        $productos = Product::where('marca_id', $marca_id)->orderBy('id', 'desc')->take(10)->get();
+        $productos = Productos::where('marca_id', $marca_id)->orderBy('id', 'desc')->take(10)->get();
 
         if (count($productos) > 0) {
             foreach ($productos as $producto) {
@@ -99,7 +99,7 @@ class MarcaController extends Controller
     public function campanas($marca_id)
     {
         $response_campanas = [];
-        $campanas = Campana::where('marca_id', $marca_id)->orderBy('id', 'desc')->take(10)->get();
+        $campanas = Campanas::where('marca_id', $marca_id)->orderBy('id', 'desc')->take(10)->get();
 
         if (count($campanas) > 0) {
             foreach ($campanas as $campana) {

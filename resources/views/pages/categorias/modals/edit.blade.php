@@ -52,14 +52,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="font-icon-wrapper float-left mr-3 mb-3">
-                        <img src="{{asset('storage/images/categoria')}}/{{$categoria->id}}/{{$categoria->poster}}"
-                            class="rounded-circle img-custom" id='img-upload' width="100" />
+                        <img src="{{$categoria->poster_url}}" class="rounded-circle img-custom" id='img-upload'
+                            width="100" />
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="font-icon-wrapper float-left mr-3 mb-3">
-                        <img src="{{asset('storage/images/categoria')}}/{{$categoria->id}}/{{$categoria->poster_mobile}}"
-                            class="rounded-circle img-custom" id='img-upload-mobile' width="100" />
+                        <img src="{{$categoria->poster_mobile_url}}" class="rounded-circle img-custom"
+                            id='img-upload-mobile' width="100" />
                     </div>
                 </div>
             </div>
@@ -76,8 +76,8 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="font-icon-wrapper float-left mr-3 mb-3">
-                        <img src="{{asset('storage/images/categoria')}}/{{$categoria->id}}/{{$categoria->icono}}"
-                            class="rounded-circle img-custom" id='img-upload-icon' width="100" height="100" />
+                        <img src="{{$categoria->icono_url}}" class="rounded-circle img-custom" id='img-upload-icon'
+                            width="100" height="100" />
                     </div>
                 </div>
             </div>

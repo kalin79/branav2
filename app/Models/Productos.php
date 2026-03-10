@@ -28,9 +28,28 @@ class Productos extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'title_small', 'title_large', 'slug', 'precio_normal', 'precio_online', 'stock', 'description', 'poster', 'active',
-        'categoria_id','sub_categoria_id','price_delivery','description_small','poster_mobile','presentacion','imagen_acerca_producto',
-        'acerca_producto','imagen_como_usarlo','como_usarlo','poster_mobile','descuento_producto'
+        'code',
+        'title_small',
+        'title_large',
+        'slug',
+        'precio_normal',
+        'precio_online',
+        'stock',
+        'description',
+        'poster',
+        'active',
+        'categoria_id',
+        'sub_categoria_id',
+        'price_delivery',
+        'description_small',
+        'poster_mobile',
+        'presentacion',
+        'imagen_acerca_producto',
+        'acerca_producto',
+        'imagen_como_usarlo',
+        'como_usarlo',
+        'poster_mobile',
+        'descuento_producto'
     ];
 
     /**
@@ -238,7 +257,7 @@ class Productos extends Model
                     'image' => $fileName,
                     'order' => $last_order + 1
                 ]);
-                $last_order ++;
+                $last_order++;
             }
         }
     }
@@ -248,7 +267,7 @@ class Productos extends Model
         return $this->galleries()->orderBy('order', 'asc')->get();
     }
 
-    public static function finterAndPaginate($filters,  $paginate = 10)
+    public static function finterAndPaginate($filters, $paginate = 10)
     {
         $prods = Productos::filterDynamic($filters)
             ->with(['categoria'])
@@ -261,7 +280,8 @@ class Productos extends Model
 
     public function getBaseImages()
     {
-        return Storage::disk('products')->url($this->id . "/");;
+        return Storage::disk('products')->url($this->id . "/");
+        ;
     }
 
     public function getImages()
@@ -322,6 +342,36 @@ class Productos extends Model
             ->whereNull('productos_relacionados.deleted_at'); // 👈 ignorar eliminados
     }
 
+    public function getPosterUrlAttribute()
+    {
+        if (!$this->poster) {
+            return null;
+        }
+        return Storage::disk('products')->url($this->id . '/' . $this->poster);
+    }
 
+    public function getPosterMobileUrlAttribute()
+    {
+        if (!$this->poster_mobile) {
+            return null;
+        }
+        return Storage::disk('products')->url($this->id . '/' . $this->poster_mobile);
+    }
+
+    public function getImagenAcercaProductoUrlAttribute()
+    {
+        if (!$this->imagen_acerca_producto) {
+            return null;
+        }
+        return Storage::disk('products')->url($this->id . '/' . $this->imagen_acerca_producto);
+    }
+
+    public function getImagenComoUsarloUrlAttribute()
+    {
+        if (!$this->imagen_como_usarlo) {
+            return null;
+        }
+        return Storage::disk('products')->url($this->id . '/' . $this->imagen_como_usarlo);
+    }
 
 }
